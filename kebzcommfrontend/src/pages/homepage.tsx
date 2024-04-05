@@ -1,38 +1,99 @@
 // src/pages/HomePage.tsx
 
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
-import axios from 'axios';
-import PhonePlanCard from '../components/plancard';
+import { getPlansFromUser, getDevicesFromPlan, assignPlanToUser, getAllPlans} from '../api';
+import { PhonePlanCard } from '../components/plancard';
 import DeviceCard from '../components/devicecard';
+import { useNavigate } from "react-router-dom";
+import { PhonePlan, Device } from '../types';
 
-const phonePlans = [
-    { id: 1, name: 'Basic Plan', price: 29.99, description: 'Basic plan with limited features', deviceLimit: 1, textLimit: 1000, minuteLimit: 500, dataLimit: 5 },
-    { id: 2, name: 'Standard Plan', price: 49.99, description: 'Standard plan with more features', deviceLimit: 2, textLimit: 2000, minuteLimit: 1000, dataLimit: 10 },
-    // Add more phone plans as needed
-];
-const devices = [
-    { id: 1, manufacturer: 'Apple', model: 'iPhone 12', phoneNumber: '+1234567890', imei: '123456789012345' },
-    { id: 2, manufacturer: 'Samsung', model: 'Galaxy S21', phoneNumber: '+1987654321', imei: '987654321098765' },
-    // Add more devices as needed
-  ];
-  
 
 const HomePage: React.FC = () => {
+    const navigate = useNavigate();
+    const [plans, setPlans] = useState<PhonePlan[]>([]);
+    const [selectedPlanId, setSelectedPlanId] = useState<number | null>(null);
+    const [devicesByPlan, setDevicesByPlan] = useState<{ [planId: number]: Device[] }>({});
+    const [allPlans, setAllPlans] = useState<PhonePlan[]>([]);
+    const [showDropdown, setShowDropdown] = useState<boolean>(false);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            // Fetch plans for the current user
+            const fetchedPlans = await getPlansFromUser();
+            setPlans(fetchedPlans);
+
+            // Fetch devices for each plan
+            const devicesMap: { [planId: number]: Device[] } = {};
+            await Promise.all(
+                fetchedPlans.map(async (plan) => {
+                    const devices = await getDevicesFromPlan(plan.id);
+                    devicesMap[plan.id] = devices;
+                })
+            );
+            setDevicesByPlan(devicesMap);
+
+            // Fetch all plans for dropdown
+            const allPlansData = await getAllPlans();
+            setAllPlans(allPlansData);
+        };
+
+        fetchData();
+    }, []);
+
+    const togglePlan = async (planId: number) => {
+        // If the plan is already selected, deselect it
+        if (selectedPlanId === planId) {
+            setSelectedPlanId(null);
+            setDevicesByPlan({});
+            return;
+        }
+
+        // Fetch devices for the selected plan
+        const devices = await getDevicesFromPlan(planId);
+        setDevicesByPlan((prevDevicesByPlan) => ({ ...prevDevicesByPlan, [planId]: devices }));
+        setSelectedPlanId(planId);
+    };
+
+    const handleAddPlan = async (planId: number) => {
+        // Assign the selected plan to the current user
+        let currentUser: string = "TODO FILL GET CURRENT USER"
+        await assignPlanToUser(currentUser, planId);
+    };
+
+    const handleEditPlan = (planId: number) => {
+        navigate(`/editplan/${planId}`)
+    }
+
     return (
         <div className="home-page">
             <h2>Phone Plans</h2>
-            {phonePlans.map(plan => (
-                <PhonePlanCard key={plan.id} plan={plan} />
+            {plans.map((plan) => (
+                <div key={plan.id} className='container'>
+                    <PhonePlanCard plan={plan} onClick={() => togglePlan(plan.id)} />
+                    <div className="grid">
+                        {selectedPlanId === plan.id &&
+                            devicesByPlan[plan.id]?.map((device) => (
+                                <DeviceCard key={device.id} device={device} />
+                            )) }
+                    </div>
+                    <button onClick={() => handleEditPlan(plan.id)}>Edit</button>
+                </div>
             ))}
-            <h2>Devices</h2>
-            {devices.map(device => (
-                <DeviceCard key={device.id} device={device} />
-            ))}
-
+            <div>
+                <button onClick={() => setShowDropdown(!showDropdown)}>Add Plan</button>
+                {showDropdown && (
+                    <select onChange={(e) => handleAddPlan(Number(e.target.value))}>
+                        <option value="">Select a Plan</option>
+                        {allPlans.map((plan) => (
+                            <option key={plan.id} value={plan.id}>
+                                {plan.name}
+                            </option>
+                        ))}
+                    </select>
+                )}
+            </div>
         </div>
     );
-}
-
+};
 
 export default HomePage;

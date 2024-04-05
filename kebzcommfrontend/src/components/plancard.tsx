@@ -1,17 +1,8 @@
 // PhonePlanCard.tsx
 
 import React from 'react';
+import { PhonePlan } from '../types';
 
-interface PhonePlan {
-  id: number;
-  name: string;
-  price: number;
-  description: string;
-  deviceLimit: number;
-  textLimit: number;
-  minuteLimit: number;
-  dataLimit: number;
-}
 
 
 
@@ -20,10 +11,11 @@ interface PhonePlanCardProps {
   onClick: () => void;
 }
 
-const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ plan, onClick }) => {
+export const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ plan, onClick }) => {
   return (
-    <div className="phone-plan-card" onClick={onClick}>
-      <h3>{plan.name}</h3>
+    <>
+    <h3>{plan.name}</h3>
+    <div className="phone-plan-card grid" onClick={onClick}>
       <p>Price: ${plan.price}</p>
       <p>Description: {plan.description}</p>
       <p>Device Limit: {plan.deviceLimit}</p>
@@ -31,7 +23,7 @@ const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ plan, onClick }) => {
       <p>Minute Limit: {plan.minuteLimit} minutes</p>
       <p>Data Limit: {plan.dataLimit} GB</p>
     </div>
+    </>
   );
 }
 
-export default PhonePlanCard;
