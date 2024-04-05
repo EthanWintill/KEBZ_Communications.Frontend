@@ -13,13 +13,16 @@ interface PhonePlan {
   dataLimit: number;
 }
 
+
+
 interface PhonePlanCardProps {
   plan: PhonePlan;
+  onClick: () => void;
 }
 
-const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ plan }) => {
+const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ plan, onClick }) => {
   return (
-    <div className="phone-plan-card">
+    <div className="phone-plan-card" onClick={onClick}>
       <h3>{plan.name}</h3>
       <p>Price: ${plan.price}</p>
       <p>Description: {plan.description}</p>
