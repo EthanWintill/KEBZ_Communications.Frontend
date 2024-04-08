@@ -18,4 +18,11 @@ export interface Device {
     imei: string;
   }
   
+  export interface User {
+    id: number;
+    username: string,
+    email: string,
+    firstname: string,
+    lastname: string,
+  }
   

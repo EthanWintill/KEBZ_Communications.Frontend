@@ -1,7 +1,8 @@
 
 
-import { PhonePlan } from './types'; // Import Plan interface
-import { Device } from './types';
+import { promises } from 'dns';
+import { PhonePlan, Device, User } from './types'; // Import Plan interface
+
 
 // Define a list of predefined plans
 const plans: PhonePlan[] = [
@@ -72,3 +73,12 @@ export const getAllPlans = async (): Promise<PhonePlan[]> => {
     console.log(`Plan assigned to user ${currentUser}: ${planId}`);
   };
   
+
+  export const getUserById = async (userId: number): Promise<User> =>{
+    return new Promise((resolve) => {
+        setTimeout(() => {
+            const user = {id: 0, username: 'test', email: 'test@test.com', firstname: 'testy', lastname: 'tester'};
+            resolve(user);
+        }, 1000);
+    });
+  };
