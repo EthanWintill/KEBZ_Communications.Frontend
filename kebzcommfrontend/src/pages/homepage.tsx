@@ -54,7 +54,7 @@ const HomePage: React.FC = () => {
         setSelectedPlanId(planId);
     };
 
-    if(!plans){
+    if (!plans) {
         return <div>Loading...</div>
     }
 
@@ -86,11 +86,28 @@ const HomePage: React.FC = () => {
 
                     {plans.map((plan) => (
                         <tr onClick={() => togglePlan(plan.id)} >
-                            <PhonePlanCard plan={plan} onClick={() => togglePlan(plan.id)} key={plan.id}/>
-                                {selectedPlanId === plan.id &&
-                                    devicesByPlan[plan.id]?.map((device) => (
-                                        <DeviceCard key={device.id} device={device} />
-                                    ))}
+                            <PhonePlanCard plan={plan} onClick={() => togglePlan(plan.id)} key={plan.id} />
+                            {selectedPlanId === plan.id && (
+                                <>
+                                    {/* <thead>
+                                        <tr>
+                                            <th>Manufactorer</th>
+                                            <th>Model</th>
+                                            <th>Number</th>
+                                            <th>IMEI</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> */}
+
+                                        {devicesByPlan[plan.id]?.map((device) => (
+                                            <tr>
+                                                <DeviceCard key={device.id} device={device} />
+                                            </tr>
+                                        ))}
+                                    {/* </tbody> */}
+                                </>
+                            )}
+
                         </tr>
                     ))}
                 </tbody>
