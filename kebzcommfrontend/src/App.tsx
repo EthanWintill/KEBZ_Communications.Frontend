@@ -5,6 +5,8 @@ import Header from './components/header';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/loginpage';
 import HomePage from './pages/homepage';
+import EditPlanPage from './pages/editplan';
+import AccountPage from './pages/accountpage'
 
 
 function App() {
@@ -16,6 +18,8 @@ function App() {
 
           <Route path="/login" Component={LoginPage} />
           <Route path="/home" Component={HomePage} />
+          <Route path="/editplan/:planId" Component={EditPlanPage} />
+          <Route path='/account/:userId' Component={AccountPage} />
         </Routes>
 
         {/* Footer */}
