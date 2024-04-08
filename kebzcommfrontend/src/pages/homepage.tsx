@@ -1,7 +1,7 @@
 // src/pages/HomePage.tsx
 
 import React, { useState, useEffect } from 'react';
-import { getPlansFromUser, getDevicesFromPlan, assignPlanToUser, getAllPlans} from '../api';
+import { getPlansFromUser, getDevicesFromPlan, assignPlanToUser, getAllPlans } from '../api';
 import { PhonePlanCard } from '../components/plancard';
 import DeviceCard from '../components/devicecard';
 import { useNavigate } from "react-router-dom";
@@ -54,31 +54,64 @@ const HomePage: React.FC = () => {
         setSelectedPlanId(planId);
     };
 
+    if (!plans) {
+        return <div>Loading...</div>
+    }
+
     const handleAddPlan = async (planId: number) => {
         // Assign the selected plan to the current user
         let currentUser: string = "TODO FILL GET CURRENT USER"
         await assignPlanToUser(currentUser, planId);
     };
 
-    const handleEditPlan = (planId: number) => {
-        navigate(`/editplan/${planId}`)
-    }
+
 
     return (
         <div className="home-page">
             <h2>Phone Plans</h2>
-            {plans.map((plan) => (
-                <div key={plan.id} className='container'>
-                    <PhonePlanCard plan={plan} onClick={() => togglePlan(plan.id)} />
-                    <div className="grid">
-                        {selectedPlanId === plan.id &&
-                            devicesByPlan[plan.id]?.map((device) => (
-                                <DeviceCard key={device.id} device={device} />
-                            )) }
-                    </div>
-                    <button onClick={() => handleEditPlan(plan.id)}>Edit</button>
-                </div>
-            ))}
+            <table className='table table-responive table-striped table-hover'>
+                <thead>
+                    <tr>
+                        <th>Plan Name</th>
+                        <th>Price</th>
+                        <th>Description</th>
+                        <th>Device Limit</th>
+                        <th>Text Limit</th>
+                        <th>Minute Limit</th>
+                        <th>Data Limit</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+
+                    {plans.map((plan) => (
+                        <tr onClick={() => togglePlan(plan.id)} >
+                            <PhonePlanCard plan={plan} onClick={() => togglePlan(plan.id)} key={plan.id} />
+                            {selectedPlanId === plan.id && (
+                                <>
+                                    {/* <thead>
+                                        <tr>
+                                            <th>Manufactorer</th>
+                                            <th>Model</th>
+                                            <th>Number</th>
+                                            <th>IMEI</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody> */}
+
+                                        {devicesByPlan[plan.id]?.map((device) => (
+                                            <tr>
+                                                <DeviceCard key={device.id} device={device} />
+                                            </tr>
+                                        ))}
+                                    {/* </tbody> */}
+                                </>
+                            )}
+
+                        </tr>
+                    ))}
+                </tbody>
+            </table>
             <div>
                 <button onClick={() => setShowDropdown(!showDropdown)}>Add Plan</button>
                 {showDropdown && (
