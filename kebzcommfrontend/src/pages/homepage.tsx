@@ -67,7 +67,7 @@ const HomePage: React.FC = () => {
 
 
     return (
-        <div className="home-page">
+        <div className="home-page container">
             <h2>Phone Plans</h2>
             <table className='table table-responive table-striped table-hover'>
                 <thead>
@@ -85,46 +85,56 @@ const HomePage: React.FC = () => {
                 <tbody>
 
                     {plans.map((plan) => (
-                        <tr onClick={() => togglePlan(plan.id)} >
-                            <PhonePlanCard plan={plan} onClick={() => togglePlan(plan.id)} key={plan.id} />
+                        <>
+                            <tr onClick={() => togglePlan(plan.id)} >
+                                <PhonePlanCard plan={plan} onClick={() => togglePlan(plan.id)} key={plan.id} />
+                            </tr>
+
                             {selectedPlanId === plan.id && (
                                 <>
-                                    {/* <thead>
-                                        <tr>
-                                            <th>Manufactorer</th>
-                                            <th>Model</th>
-                                            <th>Number</th>
-                                            <th>IMEI</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody> */}
+                                    <tr className='table-sm'>
+                                        <th></th><th></th><th></th>
+                                        <th colSpan={1}>
+                                            <h3>Devices</h3>
+                                        </th>
+                                        <th></th><th></th><th></th>
+                                    </tr>
+                                    <tr className='table-sm'>
+                                        <th></th>
+                                        <th></th>
+                                        <th>Manufactorer</th>
+                                        <th>Model</th>
+                                        <th>Phone Number</th>
+                                        <th>IMEI</th>
+                                        <th></th>
+                                        <th></th>
+                                    </tr>
 
-                                        {devicesByPlan[plan.id]?.map((device) => (
-                                            <tr>
-                                                <DeviceCard key={device.id} device={device} />
-                                            </tr>
-                                        ))}
-                                    {/* </tbody> */}
+                                    {devicesByPlan[plan.id]?.map((device) => (
+                                        <tr className='table-sm'>
+                                            <DeviceCard key={device.id} device={device} />
+                                        </tr>
+                                    ))}
                                 </>
                             )}
-
-                        </tr>
+                        </>
                     ))}
+
                 </tbody>
             </table>
-            <div>
-                <button onClick={() => setShowDropdown(!showDropdown)}>Add Plan</button>
-                {showDropdown && (
-                    <select onChange={(e) => handleAddPlan(Number(e.target.value))}>
-                        <option value="">Select a Plan</option>
-                        {allPlans.map((plan) => (
-                            <option key={plan.id} value={plan.id}>
-                                {plan.name}
-                            </option>
-                        ))}
-                    </select>
-                )}
+            <div className="row justify-content-end">
+                <div className="col-3">
+                    <div className='dropdown'>
+                        <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                            {allPlans.map((plan) => (
+                                <button className="dropdown-item" onClick={() => { handleAddPlan(Number(plan.id)) }} key={plan.id} value={plan.id}> {plan.name}</button>
+                            ))}
+                        </div>
+                        <button className='btn btn-dark btn-lg text-right' type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Plan</button>
+                    </div>
+                </div>
             </div>
+
         </div>
     );
 };
