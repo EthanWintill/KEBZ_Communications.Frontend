@@ -17,10 +17,14 @@ interface DeviceCardProps {
 const DeviceCard: React.FC<DeviceCardProps> = ({ device }) => {
   return (
     <>
+      <td></td>
+      <td></td>
       <th>{device.manufacturer} </th>
       <th>{device.model}</th>
       <td>{device.phoneNumber}</td>
       <td>{device.imei}</td>
+      <td></td>
+      <td></td>
     </>
   );
 }
