@@ -12,16 +12,16 @@ interface PhonePlanCardProps {
 }
 
 export const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ plan, onClick }) => {
-  let editLink = `/editplan/${plan.id}`;
+  let editLink = `/editplan/${plan.planId}`;
   return (
     <>
-        <th>{plan.name}</th>
-        <td>{plan.price}</td>
-        <td>{plan.description}</td>
-        <td>{plan.deviceLimit}</td>
-        <td>{plan.textLimit}</td>
-        <td>{plan.minuteLimit}</td>
-        <td>{plan.dataLimit}</td>
+        <th>{plan.PlanName}</th>
+        <td>{plan.Price}</td>
+        <td>{plan.PlanDescription}</td>
+        <td>{plan.DeviceLimit}</td>
+        <td>{plan.TextLimit}</td>
+        <td>{plan.MinuteLimit}</td>
+        <td>{plan.DataLimit}</td>
         <td><a className='btn btn-info' href={editLink}>Edit</a></td>
     </>
   );

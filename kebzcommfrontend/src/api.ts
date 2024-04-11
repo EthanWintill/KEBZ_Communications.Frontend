@@ -6,8 +6,6 @@ import { PhonePlan, Device, User } from './types'; // Import Plan interface
 
 // Define a list of predefined plans
 const plans: PhonePlan[] = [
-  { id: 1, name: 'Basic Plan', price: 29.99, description: 'Basic plan with limited features', deviceLimit: 1, textLimit: 1000, minuteLimit: 500, dataLimit: 5 },
-  { id: 2, name: 'Standard Plan', price: 49.99, description: 'Standard plan with more features', deviceLimit: 2, textLimit: 2000, minuteLimit: 1000, dataLimit: 10 },
   // Add more plans as needed
 ];
 
@@ -17,7 +15,7 @@ export const getPlanById = async (planId: number): Promise<PhonePlan | undefined
   await new Promise(resolve => setTimeout(resolve, 500));
 
   // Find the plan with the matching ID
-  const plan = plans.find(p => p.id === planId);
+  const plan = plans.find(p => p.planId === planId);
 
   // Return the found plan, or undefined if not found
   return plan;
@@ -37,7 +35,7 @@ export const getPlanById = async (planId: number): Promise<PhonePlan | undefined
     });
   };
   
-  export const getPlansFromUser = async (): Promise<PhonePlan[]> => {
+  export const getPlansFromUser = async (): Promise<any> => {
     // Mock API call to fetch plans for the current user
     // Replace this with actual API call
     return new Promise((resolve) => {
@@ -53,15 +51,16 @@ export const getPlanById = async (planId: number): Promise<PhonePlan | undefined
   };
   
   // Mock API function to fetch all plans
-export const getAllPlans = async (): Promise<PhonePlan[]> => {
+export const getAllPlans = async (): Promise<any> => {
     // Simulating delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-  
-    // Dummy plans
-    return [
-      { id: 1, name: 'Basic Plan', price: 29.99, description: 'Basic plan with limited features', deviceLimit: 1, textLimit: 1000, minuteLimit: 500, dataLimit: 5 },
-      { id: 2, name: 'Standard Plan', price: 49.99, description: 'Standard plan with more features', deviceLimit: 2, textLimit: 2000, minuteLimit: 1000, dataLimit: 10 },
-    ];
+    try {
+      const response = await fetch('https://localhost:5001/api/plan');
+      const data = await response.json();
+      // console.log(data);
+      return data;
+    } catch (error) {
+      console.log(error);
+    }
   };
   
   // Mock API function to assign a plan to the current user

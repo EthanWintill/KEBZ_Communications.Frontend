@@ -11,10 +11,9 @@ import { PhonePlan, Device } from '../types';
 const HomePage: React.FC = () => {
     const navigate = useNavigate();
     const [plans, setPlans] = useState<PhonePlan[]>([]);
-    const [selectedPlanId, setSelectedPlanId] = useState<number | null>(null);
+    const [selectedplanId, setSelectedplanId] = useState<number | null>(null);
     const [devicesByPlan, setDevicesByPlan] = useState<{ [planId: number]: Device[] }>({});
     const [allPlans, setAllPlans] = useState<PhonePlan[]>([]);
-    const [showDropdown, setShowDropdown] = useState<boolean>(false);
 
     useEffect(() => {
         const fetchData = async () => {
@@ -25,15 +24,16 @@ const HomePage: React.FC = () => {
             // Fetch devices for each plan
             const devicesMap: { [planId: number]: Device[] } = {};
             await Promise.all(
-                fetchedPlans.map(async (plan) => {
-                    const devices = await getDevicesFromPlan(plan.id);
-                    devicesMap[plan.id] = devices;
+                fetchedPlans.map(async (plan: { planId: number; }) => {
+                    const devices = await getDevicesFromPlan(plan.planId);
+                    devicesMap[plan.planId] = devices;
                 })
             );
             setDevicesByPlan(devicesMap);
 
             // Fetch all plans for dropdown
             const allPlansData = await getAllPlans();
+            console.log(allPlansData)
             setAllPlans(allPlansData);
         };
 
@@ -42,8 +42,8 @@ const HomePage: React.FC = () => {
 
     const togglePlan = async (planId: number) => {
         // If the plan is already selected, deselect it
-        if (selectedPlanId === planId) {
-            setSelectedPlanId(null);
+        if (selectedplanId === planId) {
+            setSelectedplanId(null);
             setDevicesByPlan({});
             return;
         }
@@ -51,7 +51,7 @@ const HomePage: React.FC = () => {
         // Fetch devices for the selected plan
         const devices = await getDevicesFromPlan(planId);
         setDevicesByPlan((prevDevicesByPlan) => ({ ...prevDevicesByPlan, [planId]: devices }));
-        setSelectedPlanId(planId);
+        setSelectedplanId(planId);
     };
 
     if (!plans) {
@@ -86,11 +86,11 @@ const HomePage: React.FC = () => {
 
                     {plans.map((plan) => (
                         <>
-                            <tr onClick={() => togglePlan(plan.id)} >
-                                <PhonePlanCard plan={plan} onClick={() => togglePlan(plan.id)} key={plan.id} />
+                            <tr onClick={() => togglePlan(plan.planId)} >
+                                <PhonePlanCard plan={plan} onClick={() => togglePlan(plan.planId)} key={plan.planId} />
                             </tr>
 
-                            {selectedPlanId === plan.id && (
+                            {selectedplanId === plan.planId && (
                                 <>
                                     <tr className='table-sm'>
                                         <th></th><th></th><th></th>
@@ -110,7 +110,7 @@ const HomePage: React.FC = () => {
                                         <th></th>
                                     </tr>
 
-                                    {devicesByPlan[plan.id]?.map((device) => (
+                                    {devicesByPlan[plan.planId]?.map((device) => (
                                         <tr className='table-sm'>
                                             <DeviceCard key={device.id} device={device} />
                                         </tr>
@@ -127,7 +127,7 @@ const HomePage: React.FC = () => {
                     <div className='dropdown'>
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             {allPlans.map((plan) => (
-                                <button className="dropdown-item" onClick={() => { handleAddPlan(Number(plan.id)) }} key={plan.id} value={plan.id}> {plan.name}</button>
+                                <button className="dropdown-item" onClick={() => { handleAddPlan(Number(plan.planId)) }} key={plan.planId} value={plan.planId}> {plan.PlanName}</button>
                             ))}
                         </div>
                         <button className='btn btn-dark btn-lg text-right' type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Plan</button>

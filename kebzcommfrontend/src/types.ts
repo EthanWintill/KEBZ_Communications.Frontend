@@ -1,12 +1,12 @@
 export interface PhonePlan {
-    id: number;
-    name: string;
-    price: number;
-    description: string;
-    deviceLimit: number;
-    textLimit: number;
-    minuteLimit: number;
-    dataLimit: number;
+    planId: number;
+    PlanName: string;
+    Price: number;
+    PlanDescription: string;
+    DeviceLimit: number;
+    TextLimit: number;
+    MinuteLimit: number;
+    DataLimit: number;
   }
 
 

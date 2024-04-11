@@ -15,7 +15,7 @@ function App() {
       <div className="App">
         <Header />
         <Routes>
-
+          <Route path="/" Component={LoginPage} />
           <Route path="/login" Component={LoginPage} />
           <Route path="/home" Component={HomePage} />
           <Route path="/editplan/:planId" Component={EditPlanPage} />
