@@ -11,7 +11,7 @@ const AccountPage: React.FC = () => {
 
     useEffect(() => {
       const fetchData = async () => {
-        const fetchedUser = await getUserById(parseInt(userId+""));
+        const fetchedUser = await getUserById(userId);
         setUser(fetchedUser || null);
       }
     

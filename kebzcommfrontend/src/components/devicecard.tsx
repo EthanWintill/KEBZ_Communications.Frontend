@@ -3,7 +3,7 @@
 import React from 'react';
 
 interface Device {
-  id: number;
+  id: string;
   manufacturer: string;
   model: string;
   phoneNumber: string;
