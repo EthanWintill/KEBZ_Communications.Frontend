@@ -44,7 +44,7 @@ export const getAllDevices = async (): Promise<PhonePlan[]> => {
 //
 //
 
-export const getPlanById = async (planId: string = ""): Promise<PhonePlan | undefined> => {
+export const getPlanById = async (planId: string | undefined): Promise<PhonePlan | undefined> => {
   try {
     const response = await http.get<PhonePlan>('/plan/'+planId);
     return response.data;
@@ -55,7 +55,7 @@ export const getPlanById = async (planId: string = ""): Promise<PhonePlan | unde
 
 
 
-export const getUserById = async (userId: string = ""): Promise<User> => {
+export const getUserById = async (userId: string | undefined): Promise<User> => {
   try {
     const response = await http.get<User>('/user/'+userId);
     return response.data;
@@ -65,42 +65,32 @@ export const getUserById = async (userId: string = ""): Promise<User> => {
 };
 
 
+export const getUserPlans = async (userId: string | undefined): Promise<PhonePlan[]> => {
+  return [];
+}
 
-//OTHER GET METHODS
+export const getUserPlanDevices = async (userPlanId: string | undefined, userId: string | undefined): Promise<Device[]> => {
+  return [];
+}
 
-export const getDevicesFromUserPlan = async (planId: string  = ""): Promise<Device[]> => {
-  try {
-    const userplanresponse = await http.get<UserPlan>('/user/USERID/userplan/'+planId);
-    const userplan = userplanresponse.data;
-    return [];
-  } catch (error) {
-    throw new Error;
-  }
-};
+export const addUserPlan = async (userId: string | undefined, planId: string | undefined): Promise<void> => {
 
-export const getPlansFromUser = async (): Promise<any> => {
-  // Mock API call to fetch plans for the current user
-  // Replace this with actual API call
-  return new Promise((resolve) => {
-    setTimeout(() => {
-      // Dummy plans for the current user
-      const plans = [
-        { id: 1, name: 'Basic Plan', price: 29.99, description: 'Basic plan with limited features', deviceLimit: 1, textLimit: 1000, minuteLimit: 500, dataLimit: 5 },
-        { id: 2, name: 'Standard Plan', price: 49.99, description: 'Standard plan with more features', deviceLimit: 2, textLimit: 2000, minuteLimit: 1000, dataLimit: 10 },
-      ];
-      resolve(plans);
-    }, 1000); // Simulating delay
-  });
-};
+}
 
+export const updateUser = async (userId: string | undefined, /*other args here */): Promise<void> => {
 
+}
 
-// Mock API function to assign a plan to the current user
-export const assignPlanToUser = async (currentUser: string, planId: string): Promise<void> => {
-  // Simulating delay
-  await new Promise((resolve) => setTimeout(resolve, 1000));
-
-  // Log the plan assigned to the user
-  console.log(`Plan assigned to user ${currentUser}: ${planId}`);
-};
+export const removeDevice = async (deviceId: string | undefined): Promise<void> => {
+  
+}
+export const addDevice= async (deviceId: string | undefined, device: Device): Promise<void> => {
+  
+}
+export const removeUserPlan = async (userId: string | undefined, planId: string | undefined): Promise<void> => {
+  
+}
+export const switchNumbers= async (device1Id: string | undefined, device2Id: string | undefined): Promise<void> => {
+  
+}
 

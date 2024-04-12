@@ -1,7 +1,7 @@
 // src/pages/HomePage.tsx
 
 import React, { useState, useEffect } from 'react';
-import { getPlansFromUser, getDevicesFromUserPlan, assignPlanToUser, getAllPlans } from '../api';
+import { getUserPlans, getUserPlanDevices,addUserPlan , getAllPlans } from '../api';
 import { PhonePlanCard } from '../components/plancard';
 import DeviceCard from '../components/devicecard';
 import { PhonePlan, Device } from '../types';
@@ -16,14 +16,14 @@ const HomePage: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             // Fetch plans for the current user
-            const fetchedPlans = await getPlansFromUser();
+            const fetchedPlans = await getUserPlans("current user");
             setPlans(fetchedPlans);
 
             // Fetch devices for each plan
             const devicesMap: { [planId: string]: Device[] } = {};
             await Promise.all(
                 fetchedPlans.map(async (plan: { planId: string; }) => {
-                    const devices = await getDevicesFromUserPlan(plan.planId);
+                    const devices = await getUserPlanDevices(plan.planId, "");
                     devicesMap[plan.planId] = devices;
                 })
             );
@@ -46,7 +46,7 @@ const HomePage: React.FC = () => {
         }
 
         // Fetch devices for the selected plan
-        const devices = await getDevicesFromUserPlan(planId);
+        const devices = await getUserPlanDevices(planId, "currentuser");
         setDevicesByPlan((prevDevicesByPlan) => ({ ...prevDevicesByPlan, [planId]: devices }));
         setSelectedplanId(planId);
     };
@@ -58,7 +58,7 @@ const HomePage: React.FC = () => {
     const handleAddPlan = async (planId: string) => {
         // Assign the selected plan to the current user
         let currentUser: string = "TODO FILL GET CURRENT USER"
-        await assignPlanToUser(currentUser, planId);
+        await addUserPlan(currentUser, planId);
     };
     return (
         <div className="home-page container">
