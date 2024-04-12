@@ -37,6 +37,10 @@ const EditPlanPage: React.FC = () => {
       <h3>Associated Devices</h3>
       {devices.map((device) => (
         <DeviceCard key={device.id} device={device} /> // Display associated devices
+        //TODO
+        // ADD REMOVE DEVICE BUTTON
+        // ADD ADD DEVICE BUTTON
+        // ADD SWITCH NUMBERS FUNCTIONALITY
       ))}
     </div>
   );

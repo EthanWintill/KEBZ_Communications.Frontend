@@ -6,8 +6,8 @@ import LoginForm from '../components/loginform';
 
 const LoginPage: React.FC = () => {
   const handleLogin = (formData: any) => {
-    // Add login logic here
-    console.log('Form submitted:', formData);
+    //TODO
+    // REDIRECT TO HOME PAGE
   };
 
   return (
