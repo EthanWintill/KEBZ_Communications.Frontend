@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'; // Import useParams to access URL parameters
-import { getPlanById, getDevicesFromPlan} from '../api';
+import { getPlanById, getUserPlanDevices} from '../api';
 import {PhonePlanCard} from '../components/plancard';
 import DeviceCard from '../components/devicecard';
 import { PhonePlan, Device } from '../types';
@@ -15,11 +15,11 @@ const EditPlanPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       // Fetch the selected plan by its ID
-      const fetchedPlan = await getPlanById(parseInt(planId+"", 10));
+      const fetchedPlan = await getPlanById(planId);
       setPlan(fetchedPlan || null);
 
       // Fetch devices associated with the selected plan
-      const fetchedDevices = await getDevicesFromPlan(parseInt(planId+"", 10));
+      const fetchedDevices = await getUserPlanDevices(planId, "");
       setDevices(fetchedDevices);
     };
 

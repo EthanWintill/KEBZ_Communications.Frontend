@@ -1,7 +1,7 @@
 
 
 import { promises } from 'dns';
-import { PhonePlan, Device, User } from './types'; // Import Plan interface
+import { PhonePlan, Device, User, UserPlan } from './types'; // Import Plan interface
 import axios from 'axios';
 
 
@@ -10,79 +10,87 @@ const plans: PhonePlan[] = [
   // Add more plans as needed
 ];
 
-// Mock API function to fetch a plan by its ID
-export const getPlanById = async (planId: number): Promise<PhonePlan | undefined> => {
-  // Simulate delay to mimic network request
-  await new Promise(resolve => setTimeout(resolve, 500));
+export const http = axios.create({
+  baseURL: 'https://localhost:5001/api',
+  headers: {
+    'Content-type': 'application/json',
+  },
+});
 
-  // Find the plan with the matching ID
-  const plan = plans.find(p => p.planId === planId);
 
-  // Return the found plan, or undefined if not found
-  return plan;
+//GET ALL
+export const getAllPlans = async (): Promise<PhonePlan[]> => {
+  try {
+    const response = await http.get<Array<PhonePlan>>('/plan');
+    return response.data; // Return the data from the response
+  } catch (error) {
+    console.log(error);
+    throw new Error('Failed to fetch plans'); // Throw an error if the request fails
+  }
 };
-  export const getDevicesFromPlan = async (planId: number): Promise<Device[]> => {
-    // Mock API call to fetch devices for a given plan
-    // Replace this with actual API call
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        // Assuming the devices are filtered based on planId
-        const devices = [
-          { id: 1, manufacturer: 'Apple', model: 'iPhone 12', phoneNumber: '+1234567890', imei: '123456789012345' },
-          { id: 2, manufacturer: 'Samsung', model: 'Galaxy S21', phoneNumber: '+1987654321', imei: '987654321098765' },
-        ];
-        resolve(devices);
-      }, 1000); // Simulating delay
-    });
-  };
-  
-  export const getPlansFromUser = async (): Promise<any> => {
-    // Mock API call to fetch plans for the current user
-    // Replace this with actual API call
-    return new Promise((resolve) => {
-      setTimeout(() => {
-        // Dummy plans for the current user
-        const plans = [
-          { id: 1, name: 'Basic Plan', price: 29.99, description: 'Basic plan with limited features', deviceLimit: 1, textLimit: 1000, minuteLimit: 500, dataLimit: 5 },
-          { id: 2, name: 'Standard Plan', price: 49.99, description: 'Standard plan with more features', deviceLimit: 2, textLimit: 2000, minuteLimit: 1000, dataLimit: 10 },
-        ];
-        resolve(plans);
-      }, 1000); // Simulating delay
-    });
-  };
-  
-  // Mock API function to fetch all plans
-export const getAllPlans = async (): Promise<any> => {
-    // Simulating delay
-    try {
-      const response = await fetch('https://localhost:5001/api/plan');
-      const data = await response.json();
-      // console.log(data);
-      return data;
-    } catch (error) {
-      console.log(error);
-    }
-  };
+
+export const getAllDevices = async (): Promise<PhonePlan[]> => {
+  try {
+    const response = await http.get<Array<PhonePlan>>('/device');
+    return response.data; // Return the data from the response
+  } catch (error) {
+    console.log(error);
+    throw new Error('Failed to fetch devices'); // Throw an error if the request fails
+  }
+};
+
+
+//GET BY IDs
+//
+//
+
+export const getPlanById = async (planId: string | undefined): Promise<PhonePlan | undefined> => {
+  try {
+    const response = await http.get<PhonePlan>('/plan/'+planId);
+    return response.data;
+  } catch (error) {
+    throw new Error;
+  }
+};
 
 
 
+export const getUserById = async (userId: string | undefined): Promise<User> => {
+  try {
+    const response = await http.get<User>('/user/'+userId);
+    return response.data;
+  } catch (error) {
+    throw new Error;
+  }
+};
 
-  
-  // Mock API function to assign a plan to the current user
-  export const assignPlanToUser = async (currentUser: string, planId: number): Promise<void> => {
-    // Simulating delay
-    await new Promise((resolve) => setTimeout(resolve, 1000));
-  
-    // Log the plan assigned to the user
-    console.log(`Plan assigned to user ${currentUser}: ${planId}`);
-  };
-  
 
-  export const getUserById = async (userId: number): Promise<User> =>{
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const user = {id: 0, username: 'test', email: 'test@test.com', firstname: 'testy', lastname: 'tester'};
-            resolve(user);
-        }, 1000);
-    });
-  };
+export const getUserPlans = async (userId: string | undefined): Promise<PhonePlan[]> => {
+  return [];
+}
+
+export const getUserPlanDevices = async (userPlanId: string | undefined, userId: string | undefined): Promise<Device[]> => {
+  return [];
+}
+
+export const addUserPlan = async (userId: string | undefined, planId: string | undefined): Promise<void> => {
+
+}
+
+export const updateUser = async (userId: string | undefined, /*other args here */): Promise<void> => {
+
+}
+
+export const removeDevice = async (deviceId: string | undefined): Promise<void> => {
+  
+}
+export const addDevice= async (deviceId: string | undefined, device: Device): Promise<void> => {
+  
+}
+export const removeUserPlan = async (userId: string | undefined, planId: string | undefined): Promise<void> => {
+  
+}
+export const switchNumbers= async (device1Id: string | undefined, device2Id: string | undefined): Promise<void> => {
+  
+}
+

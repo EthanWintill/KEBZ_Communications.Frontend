@@ -1,7 +1,7 @@
 // src/pages/HomePage.tsx
 
 import React, { useState, useEffect } from 'react';
-import { getPlansFromUser, getDevicesFromPlan, assignPlanToUser, getAllPlans } from '../api';
+import { getUserPlans, getUserPlanDevices,addUserPlan , getAllPlans } from '../api';
 import { PhonePlanCard } from '../components/plancard';
 import DeviceCard from '../components/devicecard';
 import { PhonePlan, Device } from '../types';
@@ -9,21 +9,21 @@ import { PhonePlan, Device } from '../types';
 
 const HomePage: React.FC = () => {
     const [plans, setPlans] = useState<PhonePlan[]>([]);
-    const [selectedplanId, setSelectedplanId] = useState<number | null>(null);
-    const [devicesByPlan, setDevicesByPlan] = useState<{ [planId: number]: Device[] }>({});
+    const [selectedplanId, setSelectedplanId] = useState<string | null>(null);
+    const [devicesByPlan, setDevicesByPlan] = useState<{ [planId: string]: Device[] }>({});
     const [allPlans, setAllPlans] = useState<PhonePlan[]>([]);
 
     useEffect(() => {
         const fetchData = async () => {
             // Fetch plans for the current user
-            const fetchedPlans = await getPlansFromUser();
+            const fetchedPlans = await getUserPlans("current user");
             setPlans(fetchedPlans);
 
             // Fetch devices for each plan
-            const devicesMap: { [planId: number]: Device[] } = {};
+            const devicesMap: { [planId: string]: Device[] } = {};
             await Promise.all(
-                fetchedPlans.map(async (plan: { planId: number; }) => {
-                    const devices = await getDevicesFromPlan(plan.planId);
+                fetchedPlans.map(async (plan: { planId: string; }) => {
+                    const devices = await getUserPlanDevices(plan.planId, "");
                     devicesMap[plan.planId] = devices;
                 })
             );
@@ -31,17 +31,13 @@ const HomePage: React.FC = () => {
 
            // Fetch all plans for dropdown
             const allPlansData = await getAllPlans();
-            console.log(allPlansData)
-            setAllPlans(allPlansData);
-
-
-            
+            setAllPlans(allPlansData);            
         };
 
         fetchData();
     }, []);
 
-    const togglePlan = async (planId: number) => {
+    const togglePlan = async (planId: string) => {
         // If the plan is already selected, deselect it
         if (selectedplanId === planId) {
             setSelectedplanId(null);
@@ -50,7 +46,7 @@ const HomePage: React.FC = () => {
         }
 
         // Fetch devices for the selected plan
-        const devices = await getDevicesFromPlan(planId);
+        const devices = await getUserPlanDevices(planId, "currentuser");
         setDevicesByPlan((prevDevicesByPlan) => ({ ...prevDevicesByPlan, [planId]: devices }));
         setSelectedplanId(planId);
     };
@@ -59,14 +55,11 @@ const HomePage: React.FC = () => {
         return <div>Loading...</div>
     }
 
-    const handleAddPlan = async (planId: number) => {
+    const handleAddPlan = async (planId: string) => {
         // Assign the selected plan to the current user
         let currentUser: string = "TODO FILL GET CURRENT USER"
-        await assignPlanToUser(currentUser, planId);
+        await addUserPlan(currentUser, planId);
     };
-
-
-
     return (
         <div className="home-page container">
             <h2>Phone Plans</h2>
@@ -128,7 +121,7 @@ const HomePage: React.FC = () => {
                     <div className='dropdown'>
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             {allPlans.map((plan) => (
-                                <button className="dropdown-item" onClick={() => { handleAddPlan(Number(plan.planId)) }} key={plan.planId} value={plan.planId}> {plan.planName}</button>
+                                <button className="dropdown-item" onClick={() => { handleAddPlan(plan.planId) }} key={plan.planId} value={plan.planId}> {plan.planName}</button>
                             ))}
                         </div>
                         <button className='btn btn-dark btn-lg text-right' type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Plan</button>

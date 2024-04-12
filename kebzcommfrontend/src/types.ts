@@ -1,5 +1,5 @@
 export interface PhonePlan {
-    planId: number;
+    planId: string;
     planName: string;
     price: number;
     planDescription: string;
@@ -11,7 +11,7 @@ export interface PhonePlan {
 
 
 export interface Device {
-    id: number;
+    id: string;
     manufacturer: string;
     model: string;
     phoneNumber: string;
@@ -19,10 +19,21 @@ export interface Device {
   }
   
   export interface User {
-    id: number;
+    id: string;
     username: string,
     email: string,
-    firstname: string,
-    lastname: string,
+    firstName: string,
+    lastName: string,
   }
+
+  export interface UserPlan {
+    userPlanId: string;
+    userId: string;
+    planId: string;
+    user?: User | null;
+    plan?: PhonePlan | null;
+    startDate: Date;
+    endDate: Date;
+  }
+  
   
