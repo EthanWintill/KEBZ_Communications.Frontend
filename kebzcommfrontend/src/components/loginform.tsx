@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 
 interface FormData {
-  email: string;
+  userName: string;
   password: string;
 }
 
@@ -13,7 +13,7 @@ interface LoginFormProps {
 
 const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
   const [formData, setFormData] = useState<FormData>({
-    email: '',
+    userName: '',
     password: ''
   });
 
@@ -25,22 +25,40 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
     }));
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     onSubmit(formData);
+    try {
+      const response = await fetch('https://localhost:5001/api/authentication/login', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      console.log(response);
+      if (!response.ok){
+        throw new Error('Login failed');
+      }
+
+      const data = await response.json();
+      localStorage.setItem('token',data.token);
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div>
-        <label>Email:</label>
-        <input type="email" name="email" value={formData.email} onChange={handleChange} required />
+        <label>Username:</label>
+        <input type="userName" name="userName" value={formData.userName} onChange={handleChange} required />
       </div>
       <div>
         <label>Password:</label>
         <input type="password" name="password" value={formData.password} onChange={handleChange} required />
       </div>
-      <button type="submit">Login</button>
+      <button className="btn-primary" type="submit">Login</button>
     </form>
   );
 }
