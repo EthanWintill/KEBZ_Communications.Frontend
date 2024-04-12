@@ -4,12 +4,10 @@ import React, { useState, useEffect } from 'react';
 import { getPlansFromUser, getDevicesFromPlan, assignPlanToUser, getAllPlans } from '../api';
 import { PhonePlanCard } from '../components/plancard';
 import DeviceCard from '../components/devicecard';
-import { useNavigate } from "react-router-dom";
 import { PhonePlan, Device } from '../types';
 
 
 const HomePage: React.FC = () => {
-    const navigate = useNavigate();
     const [plans, setPlans] = useState<PhonePlan[]>([]);
     const [selectedplanId, setSelectedplanId] = useState<number | null>(null);
     const [devicesByPlan, setDevicesByPlan] = useState<{ [planId: number]: Device[] }>({});
@@ -31,10 +29,13 @@ const HomePage: React.FC = () => {
             );
             setDevicesByPlan(devicesMap);
 
-            // Fetch all plans for dropdown
+           // Fetch all plans for dropdown
             const allPlansData = await getAllPlans();
             console.log(allPlansData)
             setAllPlans(allPlansData);
+
+
+            
         };
 
         fetchData();
@@ -127,7 +128,7 @@ const HomePage: React.FC = () => {
                     <div className='dropdown'>
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             {allPlans.map((plan) => (
-                                <button className="dropdown-item" onClick={() => { handleAddPlan(Number(plan.planId)) }} key={plan.planId} value={plan.planId}> {plan.PlanName}</button>
+                                <button className="dropdown-item" onClick={() => { handleAddPlan(Number(plan.planId)) }} key={plan.planId} value={plan.planId}> {plan.planName}</button>
                             ))}
                         </div>
                         <button className='btn btn-dark btn-lg text-right' type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Plan</button>

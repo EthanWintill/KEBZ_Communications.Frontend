@@ -2,6 +2,7 @@
 
 import { promises } from 'dns';
 import { PhonePlan, Device, User } from './types'; // Import Plan interface
+import axios from 'axios';
 
 
 // Define a list of predefined plans
@@ -62,6 +63,10 @@ export const getAllPlans = async (): Promise<any> => {
       console.log(error);
     }
   };
+
+
+
+
   
   // Mock API function to assign a plan to the current user
   export const assignPlanToUser = async (currentUser: string, planId: number): Promise<void> => {
