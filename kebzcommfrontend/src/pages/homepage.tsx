@@ -16,7 +16,7 @@ const HomePage: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             // Fetch plans for the current user
-            const fetchedPlans = await getUserPlans("current user");
+            const fetchedPlans = await getUserPlans("TODO FILL GET CURRENT USER");
             setPlans(fetchedPlans);
 
             // Fetch devices for each plan
@@ -46,7 +46,7 @@ const HomePage: React.FC = () => {
         }
 
         // Fetch devices for the selected plan
-        const devices = await getUserPlanDevices(planId, "currentuser");
+        const devices = await getUserPlanDevices(planId, "TODO FILL GET CURRENT USER");
         setDevicesByPlan((prevDevicesByPlan) => ({ ...prevDevicesByPlan, [planId]: devices }));
         setSelectedplanId(planId);
     };
@@ -57,8 +57,7 @@ const HomePage: React.FC = () => {
 
     const handleAddPlan = async (planId: string) => {
         // Assign the selected plan to the current user
-        let currentUser: string = "TODO FILL GET CURRENT USER"
-        await addUserPlan(currentUser, planId);
+        await addUserPlan("TODO FILL GET CURRENT USER", planId);
     };
     return (
         <div className="home-page container">
@@ -111,6 +110,8 @@ const HomePage: React.FC = () => {
                                     ))}
                                 </>
                             )}
+                            {/* TODO:
+                            ADD BUTTON TO REMOVE PLAN */}
                         </>
                     ))}
 

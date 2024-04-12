@@ -27,19 +27,24 @@ const Register: React.FC = () => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    //TODO:
+    // move this into an api call in api.ts
     try {
       const response = await axios.post('https://localhost:5001/api/authentication', formData);
       console.log('Registration successful:', response.data);
-      // Redirect or show success message
     } catch (error: any) {
       console.error('Registration failed:', error.response.data);
       setError(error.response.data.message || 'Registration failed.');
     }
+    // TODO:
+    // Redirect or show success message
   };
 
   return (
     <div>
       <h2>Register</h2>
+      {/* TODO:
+      move this into a seperate component */}
       <form onSubmit={handleSubmit}>
         <div>
           <label>First Name:</label>

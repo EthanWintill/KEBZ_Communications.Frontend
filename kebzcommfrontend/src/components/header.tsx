@@ -1,7 +1,12 @@
 // src/components/Header.js
-
+//TODO add logout link
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+function logout(){
+  //TODO
+  // FILL THIS OUT
+}
 
 function Header() {
   return (
