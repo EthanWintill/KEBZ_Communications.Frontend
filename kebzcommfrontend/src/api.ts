@@ -44,7 +44,7 @@ export const getAllDevices = async (): Promise<PhonePlan[]> => {
 //
 //
 
-export const getPlanById = async (planId: string | undefined): Promise<PhonePlan | undefined> => {
+export const getPlanById = async (planId: string | undefined): Promise<PhonePlan> => {
   try {
     const response = await http.get<PhonePlan>('/plan/' + planId);
     return response.data;
@@ -65,8 +65,19 @@ export const getUserById = async (userId: string | null): Promise<User | null> =
 };
 
 
-export const getUserPlans = async (userId: string | null): Promise<PhonePlan[]> => {
-  return [];
+export const getUserPlans = async (userId: string | null): Promise<any> => {
+  try {
+    const response = await http.get<PhonePlan[]>(`/user/${userId}/userplan`);
+    const userplans =  response.data;
+
+    const planPromises = userplans.map((userPlan) => getPlanById(userPlan.planId));
+    const plans = await Promise.all(planPromises);
+
+    return plans;
+  } catch (error) {
+    console.log(error);
+    throw new Error();
+  }
 }
 
 export const getUserPlanDevices = async (userPlanId: string | undefined, userId: string | null): Promise<Device[]> => {
@@ -80,7 +91,7 @@ export const addUserPlan = async (userId: string | null, planId: string | undefi
   sixMonthsFromNow.setMonth(currentDate.getMonth() + 6);
 
   try {
-    const response = await http.post(`/${userId}/userplan`,
+    const response = await http.post(`/user/${userId}/userplan`,
       {
         userId: userId,
         planId: planId,
@@ -89,6 +100,7 @@ export const addUserPlan = async (userId: string | null, planId: string | undefi
       })
       console.log(response);
   } catch (error) {
+    console.log(error)
     throw new Error();
   }
 }
