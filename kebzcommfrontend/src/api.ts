@@ -46,7 +46,7 @@ export const getAllDevices = async (): Promise<PhonePlan[]> => {
 
 export const getPlanById = async (planId: string | undefined): Promise<PhonePlan | undefined> => {
   try {
-    const response = await http.get<PhonePlan>('/plan/'+planId);
+    const response = await http.get<PhonePlan>('/plan/' + planId);
     return response.data;
   } catch (error) {
     throw new Error;
@@ -57,7 +57,7 @@ export const getPlanById = async (planId: string | undefined): Promise<PhonePlan
 
 export const getUserById = async (userId: string | null): Promise<User | null> => {
   try {
-    const response = await http.get<User>('/user/'+userId);
+    const response = await http.get<User>('/user/' + userId);
     return response.data
   } catch (error) {
     throw new Error;
@@ -75,6 +75,22 @@ export const getUserPlanDevices = async (userPlanId: string | undefined, userId:
 
 export const addUserPlan = async (userId: string | null, planId: string | undefined): Promise<void> => {
 
+  const currentDate = new Date();
+  const sixMonthsFromNow = new Date();
+  sixMonthsFromNow.setMonth(currentDate.getMonth() + 6);
+
+  try {
+    const response = await http.post(`/${userId}/userplan`,
+      {
+        userId: userId,
+        planId: planId,
+        startDate: currentDate.toJSON().slice(0, 10),
+        endDate: sixMonthsFromNow.toJSON().slice(0, 10)
+      })
+      console.log(response);
+  } catch (error) {
+    throw new Error();
+  }
 }
 
 export const updateUser = async (userId: string | null, /*other args here */): Promise<void> => {
@@ -82,15 +98,15 @@ export const updateUser = async (userId: string | null, /*other args here */): P
 }
 
 export const removeDevice = async (deviceId: string | undefined): Promise<void> => {
-  
+
 }
-export const addDevice= async (deviceId: string | undefined, device: Device): Promise<void> => {
-  
+export const addDevice = async (deviceId: string | undefined, device: Device): Promise<void> => {
+
 }
 export const removeUserPlan = async (userId: string | null, planId: string | undefined): Promise<void> => {
-  
+
 }
-export const switchNumbers= async (device1Id: string | undefined, device2Id: string | undefined): Promise<void> => {
-  
+export const switchNumbers = async (device1Id: string | undefined, device2Id: string | undefined): Promise<void> => {
+
 }
 
