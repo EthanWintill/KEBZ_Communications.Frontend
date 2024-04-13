@@ -12,11 +12,12 @@ const HomePage: React.FC = () => {
     const [selectedplanId, setSelectedplanId] = useState<string | null>(null);
     const [devicesByPlan, setDevicesByPlan] = useState<{ [planId: string]: Device[] }>({});
     const [allPlans, setAllPlans] = useState<PhonePlan[]>([]);
+    const currentUserId = sessionStorage.getItem('userId')
 
     useEffect(() => {
         const fetchData = async () => {
             // Fetch plans for the current user
-            const fetchedPlans = await getUserPlans("TODO FILL GET CURRENT USER");
+            const fetchedPlans = await getUserPlans(currentUserId);
             setPlans(fetchedPlans);
 
             // Fetch devices for each plan
@@ -46,7 +47,7 @@ const HomePage: React.FC = () => {
         }
 
         // Fetch devices for the selected plan
-        const devices = await getUserPlanDevices(planId, "TODO FILL GET CURRENT USER");
+        const devices = await getUserPlanDevices(planId, currentUserId);
         setDevicesByPlan((prevDevicesByPlan) => ({ ...prevDevicesByPlan, [planId]: devices }));
         setSelectedplanId(planId);
     };
@@ -57,7 +58,7 @@ const HomePage: React.FC = () => {
 
     const handleAddPlan = async (planId: string) => {
         // Assign the selected plan to the current user
-        await addUserPlan("TODO FILL GET CURRENT USER", planId);
+        await addUserPlan(currentUserId, planId);
     };
     return (
         <div className="home-page container">
