@@ -4,8 +4,8 @@ import { Link } from 'react-router-dom';
 
 function logout(){
   // Clear user authentication token or data
-  localStorage.removeItem('userToken');  // Remove the token from localStorage
-
+  localStorage.removeItem('token');  // Remove the token from localStorage
+  sessionStorage.clear();
   // Redirect to the login page
   window.location.href = '/login';  // Change the location to the login page, causing a page reload
 }
@@ -22,7 +22,7 @@ function Header() {
             <Link className="nav-link" to="/home">Home</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/account/currentuser">Account</Link>
+            <Link className="nav-link" to="/account">Account</Link>
           </li>
         </ul>
         <ul className="navbar-nav ml-auto">
