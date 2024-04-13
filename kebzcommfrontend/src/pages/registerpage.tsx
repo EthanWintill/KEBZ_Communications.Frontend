@@ -41,69 +41,87 @@ const Register: React.FC = () => {
   };
 
   return (
-    <div>
+    <div className="container mt-5">
       <h2>Register</h2>
       {/* TODO:
       move this into a seperate component */}
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>First Name:</label>
+      <form onSubmit={handleSubmit}> 
+        <div className="form-group">
+          <label htmlFor="inputFirstName" className="label-left">First Name:</label>
           <input
             type="text"
+            className="form-control"
+            id="inputFirstName"
+            placeholder="First Name"
             name="firstName"
             value={formData.firstName}
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label>Last Name:</label>
+        <div className="form-group">
+          <label htmlFor="inputLastName" className="label-left">Last Name:</label>
           <input
             type="text"
+            className="form-control"
+            id="inputLastName"
+            placeholder="Last Name"
             name="lastName"
             value={formData.lastName}
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label>Username:</label>
+        <div className="form-group">
+          <label htmlFor="inputUserName" className="label-left">Username:</label>
           <input
             type="text"
+            className="form-control"
+            id="inputUserName"
+            placeholder="Username"
             name="userName"
             value={formData.userName}
             onChange={handleChange}
             required
           />
         </div>
-        <div>
-          <label>Password:</label>
+        <div className="form-group">
+          <label htmlFor="inputPassword" className="label-left">Password:</label>
           <input
             type="password"
+            className="form-control"
+            id="inputPassword"
+            placeholder="Password"
             name="password"
             value={formData.password}
             onChange={handleChange}
             required
           />
         </div>
-        <div>
-          <label>Email:</label>
+        <div className="form-group">
+          <label htmlFor="inputEmail" className="label-left">Email:</label>
           <input
             type="email"
+            className="form-control"
+            id="inputEmail"
+            placeholder="Email"
             name="email"
             value={formData.email}
             onChange={handleChange}
           />
         </div>
-        <div>
-          <label>Phone Number:</label>
+        <div className="form-group">
+          <label htmlFor="inputPhoneNumber" className="label-left">Phone Number:</label>
           <input
             type="text"
+            className="form-control"
+            id="inputPhoneNumber"
+            placeholder="Phone Number"
             name="phoneNumber"
             value={formData.phoneNumber}
             onChange={handleChange}
           />
         </div>
-        <button type="submit">Register</button>
-        {error && <div>{error}</div>}
+        <button type="submit" className="btn btn-primary">Register</button>
+        {error && <div className="alert alert-danger mt-2">{error}</div>}
       </form>
     </div>
   );
