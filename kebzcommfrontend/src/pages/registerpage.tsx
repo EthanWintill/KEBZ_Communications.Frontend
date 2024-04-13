@@ -1,17 +1,11 @@
 import React, { useState } from 'react';
 import axios from 'axios';
-
-interface FormData {
-  firstName: string;
-  lastName: string;
-  userName: string;
-  password: string;
-  email: string;
-  phoneNumber: string;
-}
+import { registerUser } from '../api';
+import { MyFormData } from '../types';
+import { useNavigate } from 'react-router-dom';
 
 const Register: React.FC = () => {
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setMyFormData] = useState<MyFormData>({
     firstName: '',
     lastName: '',
     userName: '',
@@ -19,25 +13,47 @@ const Register: React.FC = () => {
     email: '',
     phoneNumber: ''
   });
+
+  const [success, setSuccess] = useState<string>(''); // State to handle success message
   const [error, setError] = useState<string>('');
+  const navigate = useNavigate(); // Hook to redirect user
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    setMyFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
+  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+  //   e.preventDefault();
+  //   //TODO:
+  //   // move this into an api call in api.ts
+  //   try {
+  //     const response = await axios.post('https://localhost:5001/api/authentication', formData);
+  //     console.log('Registration successful:', response.data);
+  //   } catch (error: any) {
+  //     console.error('Registration failed:', error.response.data);
+  //     setError(error.response.data.message || 'Registration failed.');
+  //   }
+  //   // TODO:
+  //   // Redirect or show success message
+  // };
+
+  // Handler for form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    //TODO:
-    // move this into an api call in api.ts
+    e.preventDefault();  // Preventing default form submission behavior
     try {
-      const response = await axios.post('https://localhost:5001/api/authentication', formData);
-      console.log('Registration successful:', response.data);
+      // Attempt to register user using the API function
+      const user = await registerUser(formData);
+      console.log('User registered:', user);
+      setSuccess('Registration successful! Redirecting...'); // Set success message
+      setError(''); // Clear error message
+      setTimeout(() => {
+        navigate('/login'); // Redirect to login page after 2 seconds
+      }, 2000);
     } catch (error: any) {
-      console.error('Registration failed:', error.response.data);
-      setError(error.response.data.message || 'Registration failed.');
+      // Setting state to display error message
+      setError(error.message);
     }
-    // TODO:
-    // Redirect or show success message
   };
 
   return (

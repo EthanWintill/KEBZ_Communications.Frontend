@@ -36,4 +36,11 @@ export interface Device {
     endDate: Date;
   }
   
-  
+export interface MyFormData {
+  firstName: string;
+  lastName: string;
+  userName: string;
+  password: string;
+  email: string;
+  phoneNumber: string;
+}

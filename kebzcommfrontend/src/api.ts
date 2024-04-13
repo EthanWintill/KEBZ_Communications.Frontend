@@ -3,7 +3,22 @@
 import { promises } from 'dns';
 import { PhonePlan, Device, User, UserPlan } from './types'; // Import Plan interface
 import axios from 'axios';
+import { MyFormData } from './types';
 
+// Function to register a user
+export const registerUser = async (formData: MyFormData): Promise<User | null> => {
+  try {
+    // Making a POST request to the authentication endpoint to register a user
+    const response = await http.post<User>('/authentication/register', formData);
+    console.log('Registration successful:', response.data);
+    return response.data;  // Returning the response data which includes user details
+  } catch (error: any) {
+    console.error('Registration failed:', error.response?.data);
+    // Rethrowing the error with a customized message extracted from the error response
+    const errorMessage = error.response?.data?.message || error.message || "Registration failed due to unknown error";
+    throw new Error(errorMessage);
+  }
+};
 
 // Define a list of predefined plans
 const plans: PhonePlan[] = [
