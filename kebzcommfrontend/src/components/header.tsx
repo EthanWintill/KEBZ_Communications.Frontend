@@ -1,11 +1,13 @@
 // src/components/Header.js
-//TODO add logout link
 import React from 'react';
 import { Link } from 'react-router-dom';
 
 function logout(){
-  //TODO
-  // FILL THIS OUT
+  // Clear user authentication token or data
+  localStorage.removeItem('userToken');  // Remove the token from localStorage
+
+  // Redirect to the login page
+  window.location.href = '/login';  // Change the location to the login page, causing a page reload
 }
 
 function Header() {
@@ -25,7 +27,7 @@ function Header() {
         </ul>
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <Link className="nav-link" to="/logout">Logout</Link>
+          <button className="nav-link btn btn-link" onClick={logout} style={{ color: 'rgba(255,255,255,.55)' }}>Logout</button>
           </li>
         </ul>
       </div>

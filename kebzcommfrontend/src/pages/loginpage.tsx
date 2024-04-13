@@ -14,7 +14,7 @@ const LoginPage: React.FC = () => {
     <div className="login-page article container">
       <h2>Login</h2>
       <LoginForm onSubmit={handleLogin} />
-      <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
+      <p>Don't have an account? <Link to="/register">Sign up</Link></p>
     </div>
   );
 }
