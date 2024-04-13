@@ -51,16 +51,34 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Username:</label>
-        <input type="userName" name="userName" value={formData.userName} onChange={handleChange} required />
+    <form onSubmit={handleSubmit} className="row justify-content-center">
+      <div className="col-md-6">
+        <div className="form-group">
+          <label htmlFor="inputUsernameLogin" className="label-left">Username:</label>
+          <input 
+            type="userName" 
+            className="form-control"
+            id="inputUsernameLogin"
+            placeholder="Username"
+            name="userName" 
+            value={formData.userName} 
+            onChange={handleChange} 
+            required />
+        </div>
+        <div className="form-group">
+          <label htmlFor="inputPasswordLogin" className="label-left">Password:</label>
+          <input 
+            type="password"           
+            className="form-control"
+            id="inputPasswordLogin"
+            placeholder="Password"
+            name="password" 
+            value={formData.password} 
+            onChange={handleChange} 
+            required />
+        </div>
+        <button className="btn btn-primary" type="submit">Login</button>
       </div>
-      <div>
-        <label>Password:</label>
-        <input type="password" name="password" value={formData.password} onChange={handleChange} required />
-      </div>
-      <button className="btn-primary" type="submit">Login</button>
     </form>
   );
 }
