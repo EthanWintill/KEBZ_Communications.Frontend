@@ -9,6 +9,7 @@ const LoginPage: React.FC = () => {
     //TODO
     // REDIRECT TO HOME PAGE
     sessionStorage.setItem('userName', formData.userName);
+    window.location.href = '/home'
   };
 
   return (

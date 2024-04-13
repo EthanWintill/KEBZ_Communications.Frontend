@@ -27,7 +27,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    onSubmit(formData);
     //TODO:
     // move this into an api call in api.ts
     try {
@@ -49,6 +48,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
     } catch (error) {
       console.log(error);
     }
+
+    onSubmit(formData);
+
   };
 
   return (
