@@ -83,7 +83,7 @@ export const getUserById = async (userId: string | null): Promise<User | null> =
 export const getUserPlans = async (userId: string | null): Promise<any> => {
   try {
     const response = await http.get<PhonePlan[]>(`/user/${userId}/userplan`);
-    const userplans =  response.data;
+    const userplans = response.data;
 
     const planPromises = userplans.map((userPlan) => getPlanById(userPlan.planId));
     const plans = await Promise.all(planPromises);
@@ -96,7 +96,14 @@ export const getUserPlans = async (userId: string | null): Promise<any> => {
 }
 
 export const getUserPlanDevices = async (userPlanId: string | undefined, userId: string | null): Promise<Device[]> => {
-  return [];
+  try {
+    const response = await http.get(`/device/${userId}/${userPlanId}`);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error();
+  }
 }
 
 export const addUserPlan = async (userId: string | null, planId: string | undefined): Promise<void> => {
@@ -113,27 +120,63 @@ export const addUserPlan = async (userId: string | null, planId: string | undefi
         startDate: currentDate.toJSON().slice(0, 10),
         endDate: sixMonthsFromNow.toJSON().slice(0, 10)
       })
-      console.log(response);
+    console.log(response);
   } catch (error) {
     console.log(error)
     throw new Error();
   }
 }
 
-export const updateUser = async (userId: string | null, /*other args here */): Promise<void> => {
-
+export const updateUser = async (newUser: User): Promise<void> => {
+  try {
+    const response = await http.patch(`/user/${newUser.id}`);
+      console.log(response);
+  } catch (error) {
+    console.log(error);
+    throw new Error();
+  }
 }
 
 export const removeDevice = async (deviceId: string | undefined): Promise<void> => {
-
+  try {
+    const response = http.delete(`/device/${deviceId}`)
+      console.log(response);
+  } catch (error) {
+    console.log(error);
+    throw new Error();
+  }
 }
-export const addDevice = async (deviceId: string | undefined, device: Device): Promise<void> => {
-
+export const addDevice = async (UserPlanId: string | undefined, device: Device): Promise<void> => {
+  try {
+    const response = await http.post(`/device`, device);
+    console.log(response);
+  } catch (error) {
+    console.log(error)
+    throw new Error();
+  }
 }
 export const removeUserPlan = async (userId: string | null, planId: string | undefined): Promise<void> => {
-
+  try {
+    const response = await http.delete(`/user/${userId}/userplan/${planId}`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error()
+  }
 }
-export const switchNumbers = async (device1Id: string | undefined, device2Id: string | undefined): Promise<void> => {
-
+export const switchNumbers = async (device1: Device | undefined, device2: Device | undefined): Promise<void> => {
+  try {
+    const device1Number = device1?.phoneNumber
+    const device1PatchRes = await http.patch(`/device/${device1?.id}`,{
+      phoneNumber: device2?.phoneNumber
+    });
+    const device2PatchRes = await http.patch(`/device/${device2?.id}`,{
+      phoneNumber: device1Number
+    })
+      console.log(device1PatchRes);
+  } catch (error) {
+    console.log(error);
+    throw new Error();
+  }
 }
 
