@@ -83,7 +83,7 @@ const HomePage: React.FC = () => {
                     {plans.map((plan) => (
                         <>
                             <tr onClick={() => togglePlan(plan.associatedUserPlanID)} >
-                                <PhonePlanCard plan={plan.planObj!} onClick={() => togglePlan(plan.associatedUserPlanID)} key={plan.associatedUserPlanID} />
+                                <PhonePlanCard superplan={plan!} onClick={() => togglePlan(plan.associatedUserPlanID)} key={plan.associatedUserPlanID} />
                             </tr>
 
                             {selectedplanId === plan.associatedUserPlanID && (

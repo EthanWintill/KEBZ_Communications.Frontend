@@ -95,7 +95,6 @@ export const getUserPlans = async (userId: string | null): Promise<any> => {
       };
     });
 
-    console.log(superplans);
 
     return superplans;
   } catch (error) {
