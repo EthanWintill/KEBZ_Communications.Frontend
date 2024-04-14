@@ -6,15 +6,17 @@ import LoginForm from '../components/loginform';
 
 const LoginPage: React.FC = () => {
   const handleLogin = (formData: any) => {
-    // Add login logic here
-    console.log('Form submitted:', formData);
+    //TODO
+    // REDIRECT TO HOME PAGE
+    sessionStorage.setItem('userName', formData.userName);
+    window.location.href = '/home'
   };
 
   return (
-    <div className="login-page article container">
-      <h2>Login</h2>
-      <LoginForm onSubmit={handleLogin} />
-      <p>Don't have an account? <Link to="/signup">Sign up</Link></p>
+    <div className="login-page article container mt-5">
+      <h2 text-left mt-4>Login</h2>
+          <LoginForm onSubmit={handleLogin} />
+          <p>Don't have an account? <Link to="/register">Sign up</Link></p>      
     </div>
   );
 }

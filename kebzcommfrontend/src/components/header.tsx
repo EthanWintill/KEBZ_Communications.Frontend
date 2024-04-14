@@ -1,7 +1,14 @@
 // src/components/Header.js
-
 import React from 'react';
 import { Link } from 'react-router-dom';
+
+function logout(){
+  // Clear user authentication token or data
+  localStorage.removeItem('token');  // Remove the token from localStorage
+  sessionStorage.clear();
+  // Redirect to the login page
+  window.location.href = '/login';  // Change the location to the login page, causing a page reload
+}
 
 function Header() {
   return (
@@ -15,12 +22,12 @@ function Header() {
             <Link className="nav-link" to="/home">Home</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/account/currentuser">Account</Link>
+            <Link className="nav-link" to="/account">Account</Link>
           </li>
         </ul>
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-            <Link className="nav-link" to="/logout">Logout</Link>
+          <button className="nav-link btn btn-link" onClick={logout} style={{ color: 'rgba(255,255,255,.55)' }}>Logout</button>
           </li>
         </ul>
       </div>
