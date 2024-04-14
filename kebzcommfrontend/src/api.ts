@@ -9,7 +9,7 @@ import { MyFormData } from './types';
 export const registerUser = async (formData: MyFormData): Promise<User | null> => {
   try {
     // Making a POST request to the authentication endpoint to register a user
-    const response = await http.post<User>('/authentication/register', formData);
+    const response = await http.post<User>('/authentication', formData);
     console.log('Registration successful:', response.data);
     return response.data;  // Returning the response data which includes user details
   } catch (error: any) {

@@ -23,21 +23,6 @@ const Register: React.FC = () => {
     setMyFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  // const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-  //   e.preventDefault();
-  //   //TODO:
-  //   // move this into an api call in api.ts
-  //   try {
-  //     const response = await axios.post('https://localhost:5001/api/authentication', formData);
-  //     console.log('Registration successful:', response.data);
-  //   } catch (error: any) {
-  //     console.error('Registration failed:', error.response.data);
-  //     setError(error.response.data.message || 'Registration failed.');
-  //   }
-  //   // TODO:
-  //   // Redirect or show success message
-  // };
-
   // Handler for form submission
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();  // Preventing default form submission behavior
