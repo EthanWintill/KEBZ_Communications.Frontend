@@ -35,6 +35,12 @@ export interface Device {
     startDate: Date;
     endDate: Date;
   }
+
+export  interface Superplan {
+    planObj: PhonePlan | undefined;
+    associatedUserPlanID: string;
+}
+
   
 export interface MyFormData {
   firstName: string;

@@ -1,7 +1,7 @@
 
 
 import { promises } from 'dns';
-import { PhonePlan, Device, User, UserPlan } from './types'; // Import Plan interface
+import { PhonePlan, Device, User, UserPlan, Superplan } from './types'; // Import Plan interface
 import axios from 'axios';
 import { MyFormData } from './types';
 
@@ -44,9 +44,9 @@ export const getAllPlans = async (): Promise<PhonePlan[]> => {
   }
 };
 
-export const getAllDevices = async (): Promise<PhonePlan[]> => {
+export const getAllDevices = async (): Promise<Device[]> => {
   try {
-    const response = await http.get<Array<PhonePlan>>('/device');
+    const response = await http.get<Array<Device>>('/device');
     return response.data; // Return the data from the response
   } catch (error) {
     console.log(error);
@@ -82,13 +82,22 @@ export const getUserById = async (userId: string | null): Promise<User | null> =
 
 export const getUserPlans = async (userId: string | null): Promise<any> => {
   try {
-    const response = await http.get<PhonePlan[]>(`/user/${userId}/userplan`);
+    const response = await http.get<UserPlan[]>(`/user/${userId}/userplan`);
     const userplans = response.data;
 
-    const planPromises = userplans.map((userPlan) => getPlanById(userPlan.planId));
-    const plans = await Promise.all(planPromises);
+    const plans = await getAllPlans();
 
-    return plans;
+    const superplans: Superplan[] = userplans.map(userplan => {
+      const associatedPlan = plans.find(plan => plan.planId === userplan.planId);
+      return {
+        planObj: associatedPlan,
+        associatedUserPlanID: userplan.userPlanId
+      };
+    });
+
+    console.log(superplans);
+
+    return superplans;
   } catch (error) {
     console.log(error);
     throw new Error();
@@ -130,7 +139,7 @@ export const addUserPlan = async (userId: string | null, planId: string | undefi
 export const updateUser = async (newUser: User): Promise<void> => {
   try {
     const response = await http.patch(`/user/${newUser.id}`);
-      console.log(response);
+    console.log(response);
   } catch (error) {
     console.log(error);
     throw new Error();
@@ -140,7 +149,7 @@ export const updateUser = async (newUser: User): Promise<void> => {
 export const removeDevice = async (deviceId: string | undefined): Promise<void> => {
   try {
     const response = http.delete(`/device/${deviceId}`)
-      console.log(response);
+    console.log(response);
   } catch (error) {
     console.log(error);
     throw new Error();
@@ -167,13 +176,13 @@ export const removeUserPlan = async (userId: string | null, planId: string | und
 export const switchNumbers = async (device1: Device | undefined, device2: Device | undefined): Promise<void> => {
   try {
     const device1Number = device1?.phoneNumber
-    const device1PatchRes = await http.patch(`/device/${device1?.id}`,{
+    const device1PatchRes = await http.patch(`/device/${device1?.id}`, {
       phoneNumber: device2?.phoneNumber
     });
-    const device2PatchRes = await http.patch(`/device/${device2?.id}`,{
+    const device2PatchRes = await http.patch(`/device/${device2?.id}`, {
       phoneNumber: device1Number
     })
-      console.log(device1PatchRes);
+    console.log(device1PatchRes);
   } catch (error) {
     console.log(error);
     throw new Error();

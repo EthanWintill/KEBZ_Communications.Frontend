@@ -4,11 +4,11 @@ import React, { useState, useEffect } from 'react';
 import { getUserPlans, getUserPlanDevices,addUserPlan , getAllPlans } from '../api';
 import { PhonePlanCard } from '../components/plancard';
 import DeviceCard from '../components/devicecard';
-import { PhonePlan, Device } from '../types';
+import { PhonePlan, Device, Superplan } from '../types';
 
 
 const HomePage: React.FC = () => {
-    const [plans, setPlans] = useState<PhonePlan[]>([]);
+    const [plans, setPlans] = useState<Superplan[]>([]);
     const [selectedplanId, setSelectedplanId] = useState<string | null>(null);
     const [devicesByPlan, setDevicesByPlan] = useState<{ [planId: string]: Device[] }>({});
     const [allPlans, setAllPlans] = useState<PhonePlan[]>([]);
@@ -27,14 +27,14 @@ const HomePage: React.FC = () => {
     useEffect(() => {
         const fetchData = async () => {
             // Fetch plans for the current user
-            const fetchedPlans = await getUserPlans(currentUserId);
-            setPlans(fetchedPlans);
+            const fetchedSuperPlans = await getUserPlans(currentUserId);
+            setPlans(fetchedSuperPlans);
             // Fetch devices for each plan
-            const devicesMap: { [planId: string]: Device[] } = {};
+            const devicesMap: { [userPlanId: string]: Device[] } = {};
             await Promise.all(
-                fetchedPlans.map(async (plan: { planId: string; }) => {
-                    const devices = await getUserPlanDevices(plan.planId, "");
-                    devicesMap[plan.planId] = devices;
+                fetchedSuperPlans.map(async (superPlan: { associatedUserPlanID: string; }) => {
+                    const devices = await getUserPlanDevices(superPlan.associatedUserPlanID, currentUserId);
+                    devicesMap[superPlan.associatedUserPlanID] = devices;
                 })
             );
             setDevicesByPlan(devicesMap);
@@ -82,11 +82,11 @@ const HomePage: React.FC = () => {
 
                     {plans.map((plan) => (
                         <>
-                            <tr onClick={() => togglePlan(plan.planId)} >
-                                <PhonePlanCard plan={plan} onClick={() => togglePlan(plan.planId)} key={plan.planId} />
+                            <tr onClick={() => togglePlan(plan.associatedUserPlanID)} >
+                                <PhonePlanCard plan={plan.planObj!} onClick={() => togglePlan(plan.associatedUserPlanID)} key={plan.associatedUserPlanID} />
                             </tr>
 
-                            {selectedplanId === plan.planId && (
+                            {selectedplanId === plan.associatedUserPlanID && (
                                 <>
                                     <tr className='table-sm'>
                                         <th></th><th></th><th></th>
@@ -106,7 +106,7 @@ const HomePage: React.FC = () => {
                                         <th></th>
                                     </tr>
 
-                                    {devicesByPlan[plan.planId]?.map((device) => (
+                                    {devicesByPlan[plan.associatedUserPlanID]?.map((device) => (
                                         <tr className='table-sm'>
                                             <DeviceCard key={device.id} device={device} />
                                         </tr>
