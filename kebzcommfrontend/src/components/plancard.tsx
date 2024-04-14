@@ -1,28 +1,40 @@
 // PhonePlanCard.tsx
 
 import React from 'react';
-import { PhonePlan } from '../types';
+import { PhonePlan, Superplan } from '../types';
+import { Link } from 'react-router-dom';
 
 
 
 
 interface PhonePlanCardProps {
-  plan: PhonePlan;
+  superplan: Superplan;
   onClick: () => void;
 }
 
-export const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ plan, onClick }) => {
-  let editLink = `/editplan/${plan.planId}`;
+export const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ superplan, onClick }) => {
+  const plan = superplan.planObj
+
+  if (!plan)
+    throw new Error('No plan found!');
+
+  let editLink = `/editplan`;
   return (
     <>
-        <th>{plan.planName}</th>
-        <td>{plan.price}</td>
-        <td>{plan.planDescription}</td>
-        <td>{plan.deviceLimit}</td>
-        <td>{plan.textLimit}</td>
-        <td>{plan.minuteLimit}</td>
-        <td>{plan.dataLimit}</td>
-        <td><a className='btn btn-info' href={editLink}>Edit</a></td>
+      <th>{plan.planName}</th>
+      <td>{plan.price}</td>
+      <td>{plan.planDescription}</td>
+      <td>{plan.deviceLimit}</td>
+      <td>{plan.textLimit}</td>
+      <td>{plan.minuteLimit}</td>
+      <td>{plan.dataLimit}</td>
+      <td>
+        <Link to={editLink} state={{
+          pathname: editLink,
+          state: { superplan } // Pass the superplan object as state
+        }as any} className='btn btn-info'>Edit</Link>
+
+      </td>
     </>
   );
 }
