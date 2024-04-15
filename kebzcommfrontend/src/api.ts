@@ -29,6 +29,7 @@ export const http = axios.create({
   baseURL: 'https://localhost:5001/api',
   headers: {
     'Content-type': 'application/json',
+    'Authorization': 'Bearer ' + localStorage.getItem('token')
   },
 });
 
@@ -135,9 +136,9 @@ export const addUserPlan = async (userId: string | null, planId: string | undefi
   }
 }
 
-export const updateUser = async (newUser: User): Promise<void> => {
+export const updateUser = async (editedUser: User): Promise<void> => {
   try {
-    const response = await http.patch(`/user/${newUser.id}`);
+    const response = await http.put(`/user/${editedUser.id}`, editedUser);
     console.log(response);
   } catch (error) {
     console.log(error);
