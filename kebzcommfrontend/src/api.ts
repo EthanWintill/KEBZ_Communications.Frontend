@@ -136,9 +136,9 @@ export const addUserPlan = async (userId: string | null, planId: string | undefi
   }
 }
 
-export const updateUser = async (newUser: User): Promise<void> => {
+export const updateUser = async (editedUser: User): Promise<void> => {
   try {
-    const response = await http.put(`/user/${newUser.id}`, newUser);
+    const response = await http.put(`/user/${editedUser.id}`, editedUser);
     console.log(response);
   } catch (error) {
     console.log(error);
