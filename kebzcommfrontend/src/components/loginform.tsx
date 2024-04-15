@@ -45,11 +45,11 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
       const data = await response.json();
       localStorage.setItem('token',data.token);
       sessionStorage.setItem('userId', data.userId);
+      onSubmit(formData);
     } catch (error) {
       console.log(error);
     }
 
-    onSubmit(formData);
 
   };
 
