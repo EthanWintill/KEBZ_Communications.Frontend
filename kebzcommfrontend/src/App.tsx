@@ -6,6 +6,7 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import LoginPage from './pages/loginpage';
 import HomePage from './pages/homepage';
 import EditPlanPage from './pages/editplan';
+import AddDevicePage from './pages/adddevicepage';
 import AccountPage from './pages/accountpage'
 import Register from './pages/registerpage';
 import PrivateRoutes from './components/protectedRoute';
@@ -21,6 +22,7 @@ function App() {
             <Route path='/account' Component={AccountPage} />
             <Route path="/home" Component={HomePage} />
             <Route path="/editplan/:planId" Component={EditPlanPage} />
+            <Route path="/editplan/:planId/adddevicepage" Component={AddDevicePage} />
           </Route>
           <Route path="/" Component={LoginPage} />
           <Route path="/login" Component={LoginPage} />

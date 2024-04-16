@@ -3,9 +3,10 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom'; // Import useParams to access URL parameters
 import { getPlanById, getUserPlanDevices} from '../api';
-import {PhonePlanCard} from '../components/plancard';
-import DeviceCard from '../components/devicecard';
+import {PhonePlanCardExpanded} from '../components/plancard';
+import DeviceCardButtons from '../components/devicecard';
 import { PhonePlan, Device } from '../types';
+import { Link } from 'react-router-dom';
 
 const EditPlanPage: React.FC = () => {
   const { planId } = useParams<{ planId: string }>(); // Get the planId parameter from the URL
@@ -33,15 +34,16 @@ const EditPlanPage: React.FC = () => {
   return (
     <div className="edit-plan-page">
       <h2>Edit Plan</h2>
-      <PhonePlanCard plan={plan} onClick={()=>{}}/> {/* Display the selected plan */}
+      <PhonePlanCardExpanded plan={plan} onClick={()=>{}}/> {/* Display the selected plan */}
       <h3>Associated Devices</h3>
       {devices.map((device) => (
-        <DeviceCard key={device.id} device={device} /> // Display associated devices
+        <DeviceCardButtons key={device.id} device={device} /> // Display associated devices
         //TODO
         // ADD REMOVE DEVICE BUTTON
         // ADD ADD DEVICE BUTTON
         // ADD SWITCH NUMBERS FUNCTIONALITY
       ))}
+    <Link to="./adddevicepage" className="btn btn-primary">Add Device</Link>
     </div>
   );
 };
