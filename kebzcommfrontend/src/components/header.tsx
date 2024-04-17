@@ -11,6 +11,9 @@ function logout(){
 }
 
 function Header() {
+  // Checks if the user is logged in based on the presence of a token in localStorage or sessionStorage
+  const isLoggedIn = localStorage.getItem('token') || sessionStorage.getItem('token');
+
   return (
     <header className="navbar navbar-expand-lg navbar-dark bg-dark">
     <div className="container-fluid">
@@ -27,7 +30,10 @@ function Header() {
         </ul>
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
-          <button className="nav-link btn btn-link" onClick={logout} style={{ color: 'rgba(255,255,255,.55)' }}>Logout</button>
+            <button className="nav-link btn btn-link" onClick={isLoggedIn ? logout : () => window.location.href = '/login'} 
+                style={{ color: 'rgba(255,255,255,.55)' }}>
+              {isLoggedIn ? 'Logout' : 'Sign-In/Sign-Up'}
+            </button>
           </li>
         </ul>
       </div>
