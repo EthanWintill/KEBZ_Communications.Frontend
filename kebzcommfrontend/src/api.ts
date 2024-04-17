@@ -149,7 +149,7 @@ export const updateUser = async (editedUser: User): Promise<void> => {
 export const removeDevice = async (deviceId: string | undefined): Promise<void> => {
   try {
     const response = http.delete(`/device/${deviceId}`)
-    console.log(response);
+    console.log("BRUH" + deviceId);
   } catch (error) {
     console.log(error);
     throw new Error();
@@ -176,10 +176,10 @@ export const removeUserPlan = async (userId: string | null, planId: string | und
 export const switchNumbers = async (device1: Device | undefined, device2: Device | undefined): Promise<void> => {
   try {
     const device1Number = device1?.phoneNumber
-    const device1PatchRes = await http.patch(`/device/${device1?.id}`, {
+    const device1PatchRes = await http.patch(`/device/${device1?.deviceId}`, {
       phoneNumber: device2?.phoneNumber
     });
-    const device2PatchRes = await http.patch(`/device/${device2?.id}`, {
+    const device2PatchRes = await http.patch(`/device/${device2?.deviceId}`, {
       phoneNumber: device1Number
     })
     console.log(device1PatchRes);
