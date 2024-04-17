@@ -27,9 +27,9 @@ export const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ superplan, onClick
       <td>{plan.price}</td>
       <td>{plan.planDescription}</td>
       <td>{plan.deviceLimit}</td>
-      <td>{plan.textLimit}</td>
-      <td>{plan.minuteLimit}</td>
-      <td>{plan.dataLimit}</td>
+      <td>{plan?.textLimit === -1 ? 'Unlimited' : plan?.textLimit}</td>
+      <td>{plan?.minuteLimit === -1 ? 'Unlimited' : plan?.minuteLimit}</td>
+      <td>{plan?.dataLimit === -1 ? 'Unlimited' : plan?.dataLimit}</td>
       <td>
         <Link to={editLink} state={{
           pathname: editLink,
@@ -49,13 +49,13 @@ export const PhonePlanCardExpanded: React.FC<PhonePlanCardProps> = ({ superplan,
     <div className="card">
       <div className="card-body">
         <h5 className="card-title">{plan?.planName}</h5>
-        <p className="card-text">Price: {plan?.price}</p>
+        <p className="card-text">Price: ${plan?.price}</p>
         <p className="card-text">{plan?.planDescription}</p>
         <ul className="list-group list-group-flush">
           <li className="list-group-item">Device Limit: {plan?.deviceLimit}</li>
-          <li className="list-group-item">Text Limit: {plan?.textLimit}</li>
-          <li className="list-group-item">Minute Limit: {plan?.minuteLimit}</li>
-          <li className="list-group-item">Data Limit: {plan?.dataLimit}</li>
+          <li className="list-group-item">Text Limit: {plan?.textLimit === -1 ? 'Unlimited' : plan?.textLimit}</li>
+          <li className="list-group-item">Minute Limit: {plan?.minuteLimit === -1 ? 'Unlimited' : plan?.minuteLimit}</li>
+          <li className="list-group-item">Data Limit: {plan?.dataLimit === -1 ? 'Unlimited' : plan?.dataLimit}</li>
         </ul>
       </div>
     </div>

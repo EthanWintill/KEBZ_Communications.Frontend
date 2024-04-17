@@ -39,7 +39,9 @@ const EditPlanPage: React.FC = () => {
       <PhonePlanCardExpanded superplan={superplan} onClick={()=>{}}/> {/* Display the selected plan */}
       <h3>Associated Devices</h3>
       {devices.map((device) => (
-        <DeviceCardButtons device={device} /> // Display associated devices
+        <div className = "border p-3">
+          <DeviceCardButtons device={device} />
+        </div>
         //TODO
         // ADD REMOVE DEVICE BUTTON
         // ADD ADD DEVICE BUTTON
