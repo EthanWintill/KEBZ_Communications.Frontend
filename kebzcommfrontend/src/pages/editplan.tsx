@@ -10,6 +10,7 @@ import { Link } from 'react-router-dom';
 
 const EditPlanPage: React.FC = () => {
   const [devices, setDevices] = useState<Device[]>([]);
+  const [deviceCount, setDeviceCount] = useState<number>(0);
   let { state } = useLocation();
   const superplan = state.state.superplan;
 
@@ -20,6 +21,7 @@ const EditPlanPage: React.FC = () => {
       // Fetch devices associated with the selected plan
       const fetchedDevices = await getUserPlanDevices(superplan.associatedUserPlanID, sessionStorage.getItem('userId'));
       setDevices(fetchedDevices);
+      setDeviceCount(fetchedDevices.length);
     };
 
     fetchData();
@@ -28,6 +30,8 @@ const EditPlanPage: React.FC = () => {
   if (!superplan) {
     return <div>Loading...</div>;
   }
+
+  const atLimit = deviceCount < superplan.planObj.deviceLimit;
 
   return (
     <div className="edit-plan-page">
@@ -42,10 +46,16 @@ const EditPlanPage: React.FC = () => {
         // ADD SWITCH NUMBERS FUNCTIONALITY
       ))}
       <div style={{margin: '20px'}}></div>
-    <Link to="./adddevicepage" state={{
-          state: { superplan } // Pass the superplan object as state
-        }as any} className="btn btn-primary">Add Device</Link>
+      <Link 
+            to={atLimit ? "./adddevicepage" : "/"} 
+            state={{
+              state: {superplan}
+            }}
+            className={`btn ${atLimit ? "btn-primary" : "btn-secondary"}`} >
+            {atLimit ? "Add Device" : "Maximum Devices Reached"}
+        </Link>
     </div>
   );
 };
+
 export default EditPlanPage;
