@@ -1,6 +1,7 @@
 // src/components/Header.js
 import React from 'react';
 import { Link } from 'react-router-dom';
+import logo from '../assets/kebz-logo.png';
 
 function logout(){
   // Clear user authentication token or data
@@ -17,7 +18,9 @@ function Header() {
   return (
     <header className="navbar navbar-expand-lg navbar-dark bg-dark">
     <div className="container-fluid">
-      <Link className="navbar-brand" to="/">KEBZ Communications</Link>
+      <Link className="navbar-brand" to="/">
+      <img src={logo} alt="KEBZ Communications" style={{ height: '30px' }} />
+      </Link>
 
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">

@@ -10,11 +10,13 @@ const LandingPage: React.FC = () => {
   };
 
   return (
-    <div className="container text-center mt-5">
-      <img src={logo} alt="KEBZ Communications Logo" className="mb-4" style={{ maxWidth: '200px' }} />
-      <h1>Welcome to KEBZ Communications</h1>
-      <p className="lead">Connecting You to the World, Faster.</p>
-      <button onClick={handleGetStartedClick} className="btn btn-primary btn-lg">Get Started</button>
+    <div className="d-flex justify-content-center align-items-center" style={{ height: 'calc(100vh - 200px)' }}>
+      <div className="text-center">
+        <img src={logo} alt="KEBZ Communications Logo" className="mb-4" style={{ maxWidth: '200px' }} />
+        <h1>Welcome to KEBZ Communications</h1>
+        <p className="lead">Connecting You to the World, Faster.</p>
+        <button onClick={handleGetStartedClick} className="btn btn-primary btn-lg">Get Started</button>
+      </div>
     </div>
   );
 };
