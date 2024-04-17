@@ -113,8 +113,6 @@ const HomePage: React.FC = () => {
                                     ))}
                                 </>
                             )}
-                            {/* TODO:
-                            ADD BUTTON TO REMOVE PLAN */}
                         </>
                     ))}
 
