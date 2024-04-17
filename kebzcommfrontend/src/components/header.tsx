@@ -25,10 +25,10 @@ function Header() {
       <div className="collapse navbar-collapse" id="navbarNav">
         <ul className="navbar-nav">
           <li className="nav-item">
-            <Link className="nav-link" to="/home">Home</Link>
+            <Link className="nav-link" to="/account">Account</Link>
           </li>
           <li className="nav-item">
-            <Link className="nav-link" to="/account">Account</Link>
+            <Link className="nav-link" to="/home">Your Plans</Link>
           </li>
         </ul>
         <ul className="navbar-nav ml-auto">
