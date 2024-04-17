@@ -13,6 +13,7 @@ interface PhonePlanCardProps {
   onClick: () => void;
 }
 
+
 export const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ superplan, onClick }) => {
   const plan = superplan.planObj
   const currentuser = sessionStorage.getItem('userId')
@@ -43,19 +44,20 @@ export const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ superplan, onClick
   );
 }
 
-export const PhonePlanCardExpanded: React.FC<PhonePlanCardProps> = ({ plan, onClick }) => {
-  let editLink = `/editplan/${plan.planId}`;
+export const PhonePlanCardExpanded: React.FC<PhonePlanCardProps> = ({ superplan, onClick }) => {
+  const plan = superplan.planObj
+  let editLink = `/editplan`;
   return (
     <div className="card">
       <div className="card-body">
-        <h5 className="card-title">{plan.planName}</h5>
-        <p className="card-text">Price: {plan.price}</p>
-        <p className="card-text">{plan.planDescription}</p>
+        <h5 className="card-title">{plan?.planName}</h5>
+        <p className="card-text">Price: {plan?.price}</p>
+        <p className="card-text">{plan?.planDescription}</p>
         <ul className="list-group list-group-flush">
-          <li className="list-group-item">Device Limit: {plan.deviceLimit}</li>
-          <li className="list-group-item">Text Limit: {plan.textLimit}</li>
-          <li className="list-group-item">Minute Limit: {plan.minuteLimit}</li>
-          <li className="list-group-item">Data Limit: {plan.dataLimit}</li>
+          <li className="list-group-item">Device Limit: {plan?.deviceLimit}</li>
+          <li className="list-group-item">Text Limit: {plan?.textLimit}</li>
+          <li className="list-group-item">Minute Limit: {plan?.minuteLimit}</li>
+          <li className="list-group-item">Data Limit: {plan?.dataLimit}</li>
         </ul>
       </div>
     </div>

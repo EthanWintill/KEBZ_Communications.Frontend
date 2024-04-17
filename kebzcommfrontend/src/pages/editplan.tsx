@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom'; // Import useParams to access URL parameters
-import { getPlanById, getUserPlanDevices} from '../api';
+import { getPlanById, getUserPlanDevices, removeDevice} from '../api';
 import {PhonePlanCardExpanded} from '../components/plancard';
-import DeviceCardButtons from '../components/devicecard';
+import {DeviceCardButtons} from '../components/devicecard';
 import { PhonePlan, Device } from '../types';
 import { Link } from 'react-router-dom';
 
@@ -35,12 +35,13 @@ const EditPlanPage: React.FC = () => {
       <PhonePlanCardExpanded superplan={superplan} onClick={()=>{}}/> {/* Display the selected plan */}
       <h3>Associated Devices</h3>
       {devices.map((device) => (
-        <DeviceCardButtons key={device.id} device={device} /> // Display associated devices
+        <DeviceCardButtons device={device} /> // Display associated devices
         //TODO
         // ADD REMOVE DEVICE BUTTON
         // ADD ADD DEVICE BUTTON
         // ADD SWITCH NUMBERS FUNCTIONALITY
       ))}
+      <div style={{margin: '20px'}}></div>
     <Link to="./adddevicepage" state={{
           state: { superplan } // Pass the superplan object as state
         }as any} className="btn btn-primary">Add Device</Link>

@@ -21,7 +21,7 @@ function App() {
           <Route element={<PrivateRoutes />}>
             <Route path='/account' Component={AccountPage} />
             <Route path="/home" Component={HomePage} />
-            <Route path="/editplan/planId/adddevicepage" Component={AddDevicePage} />
+            <Route path="/editplan/adddevicepage" Component={AddDevicePage} />
             <Route path="/editplan" Component={EditPlanPage} />
           </Route>
           <Route path="/" Component={LoginPage} />

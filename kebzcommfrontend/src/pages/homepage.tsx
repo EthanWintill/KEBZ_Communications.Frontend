@@ -108,7 +108,7 @@ const HomePage: React.FC = () => {
 
                                     {devicesByPlan[plan.associatedUserPlanID]?.map((device) => (
                                         <tr className='table-sm'>
-                                            <DeviceCard key={device.id} device={device} />
+                                            <DeviceCard key={device.deviceId} device={device} />
                                         </tr>
                                     ))}
                                 </>

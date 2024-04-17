@@ -1,6 +1,7 @@
 // src/components/deviceform.tsx
 
 import React, { useState } from 'react';
+import { Superplan } from '../types';
 
 interface FormData {
   manufacturer: string;
@@ -8,19 +9,22 @@ interface FormData {
   phoneNumber: string;
   IMEI: string;
   userId: string;
+  userPlanId: string;
 }
 
 interface DeviceFormProps {
+  superplan: Superplan; 
   onSubmit: (formData: FormData) => void;
 }
 
-const DeviceForm: React.FC<DeviceFormProps> = ({ onSubmit }) => {
+const DeviceForm: React.FC<DeviceFormProps> = ({ superplan, onSubmit }) => {
   const [formData, setFormData] = useState<FormData>({
     manufacturer: '',
     model: '',
     phoneNumber: '',
     IMEI: '',
-    userId: sessionStorage.getItem('userId')!
+    userId: sessionStorage.getItem('userId')!,
+    userPlanId: superplan.associatedUserPlanID
   });
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {

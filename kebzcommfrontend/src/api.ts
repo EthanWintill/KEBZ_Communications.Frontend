@@ -29,7 +29,6 @@ export const http = axios.create({
   baseURL: 'https://localhost:5001/api',
   headers: {
     'Content-type': 'application/json',
-    'Authorization': 'Bearer ' + localStorage.getItem('token')
   },
 });
 
@@ -96,6 +95,7 @@ export const getUserPlans = async (userId: string | null): Promise<any> => {
       };
     });
 
+    console.log(superplans);
 
     return superplans;
   } catch (error) {
@@ -136,9 +136,9 @@ export const addUserPlan = async (userId: string | null, planId: string | undefi
   }
 }
 
-export const updateUser = async (editedUser: User): Promise<void> => {
+export const updateUser = async (newUser: User): Promise<void> => {
   try {
-    const response = await http.put(`/user/${editedUser.id}`, editedUser);
+    const response = await http.patch(`/user/${newUser.id}`);
     console.log(response);
   } catch (error) {
     console.log(error);
@@ -149,7 +149,7 @@ export const updateUser = async (editedUser: User): Promise<void> => {
 export const removeDevice = async (deviceId: string | undefined): Promise<void> => {
   try {
     const response = http.delete(`/device/${deviceId}`)
-    console.log(response);
+    console.log("BRUH" + deviceId);
   } catch (error) {
     console.log(error);
     throw new Error();
@@ -176,10 +176,10 @@ export const removeUserPlan = async (userId: string | null, planId: string | und
 export const switchNumbers = async (device1: Device | undefined, device2: Device | undefined): Promise<void> => {
   try {
     const device1Number = device1?.phoneNumber
-    const device1PatchRes = await http.patch(`/device/${device1?.id}`, {
+    const device1PatchRes = await http.patch(`/device/${device1?.deviceId}`, {
       phoneNumber: device2?.phoneNumber
     });
-    const device2PatchRes = await http.patch(`/device/${device2?.id}`, {
+    const device2PatchRes = await http.patch(`/device/${device2?.deviceId}`, {
       phoneNumber: device1Number
     })
     console.log(device1PatchRes);
