@@ -35,12 +35,10 @@ const DeviceCard: React.FC<DeviceCardProps> = ({ device }) => {
 }
 
 export const DeviceCardButtons: React.FC<DeviceCardButtonProps> = ({ device }) => {
-
   return (
     <div className="d-flex justify-content-center align-items-center">
       <div className="text-center">
         <h4>{device.manufacturer} {device.model}</h4>
-        <p>Phone Number2: {device.deviceId}</p>
         <p>Phone Number: {device.phoneNumber}</p>
         <p>IMEI: {device.imei}</p>
         <button onClick={() => removeDevice(device.deviceId)} className="btn btn-danger">Remove Device</button>
