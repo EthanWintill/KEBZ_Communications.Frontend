@@ -32,7 +32,7 @@ function Header() {
           <li className="nav-item">
             <button className="nav-link btn btn-link" onClick={isLoggedIn ? logout : () => window.location.href = '/login'} 
                 style={{ color: 'rgba(255,255,255,.55)' }}>
-              {isLoggedIn ? 'Logout' : 'Sign-In/Sign-Up'}
+              {isLoggedIn ? 'Logout' : 'Sign-In'}
             </button>
           </li>
         </ul>
