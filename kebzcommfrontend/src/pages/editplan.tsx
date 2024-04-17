@@ -56,6 +56,7 @@ const EditPlanPage: React.FC = () => {
             className={`btn ${atLimit ? "btn-primary" : "btn-secondary"}`} >
             {atLimit ? "Add Device" : "Maximum Devices Reached"}
         </Link>
+      <Link to={"./switchphonenumbers"} className="btn btn-primary" state={{state: {superplan}}}>Switch Phone Numbers</Link>
     </div>
   );
 };

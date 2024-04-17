@@ -10,6 +10,7 @@ import AddDevicePage from './pages/adddevicepage';
 import AccountPage from './pages/accountpage'
 import Register from './pages/registerpage';
 import PrivateRoutes from './components/protectedRoute';
+import SwitchPhoneNumbersPage from './pages/switchphonenumbers';
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
             <Route path='/account' Component={AccountPage} />
             <Route path="/home" Component={HomePage} />
             <Route path="/editplan/adddevicepage" Component={AddDevicePage} />
+            <Route path="/editplan/switchphonenumbers" Component={SwitchPhoneNumbersPage} />
             <Route path="/editplan" Component={EditPlanPage} />
           </Route>
           <Route path="/" Component={LoginPage} />

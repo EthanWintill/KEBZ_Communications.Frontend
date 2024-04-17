@@ -104,6 +104,17 @@ export const getUserPlans = async (userId: string | null): Promise<any> => {
   }
 }
 
+export const getUserDevices = async (userId: string | undefined): Promise<Device[]> => {
+  try {
+    const response = await http.get<Array<Device>>(`/device/${userId}/device`);
+    console.log(response);
+    return response.data;
+  } catch (error) {
+    console.log("bruh" + error);
+    throw new Error();
+  }
+}
+
 export const getUserPlanDevices = async (userPlanId: string | undefined, userId: string | null): Promise<Device[]> => {
   try {
     const response = await http.get(`/device/${userId}/${userPlanId}`);

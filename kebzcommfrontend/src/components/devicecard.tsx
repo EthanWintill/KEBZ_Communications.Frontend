@@ -19,6 +19,10 @@ interface DeviceCardButtonProps {
   device: Device;
 }
 
+interface DeviceCardButtonSwitchProps {
+  device: Device;
+}
+
 const DeviceCard: React.FC<DeviceCardProps> = ({ device }) => {
   return (
     <>
@@ -42,6 +46,20 @@ export const DeviceCardButtons: React.FC<DeviceCardButtonProps> = ({ device }) =
         <p>Phone Number: {device.phoneNumber}</p>
         <p>IMEI: {device.imei}</p>
         <button onClick={() => removeDevice(device.deviceId)} className="btn btn-danger">Remove Device</button>
+        <div style = {{margin: '20px'}}></div>
+      </div>
+    </div>
+  );
+}
+
+export const DeviceCardButtonsSwitch: React.FC<DeviceCardButtonSwitchProps> = ({ device }) => {
+  return (
+    <div className="d-flex justify-content-center align-items-center">
+      <div className="text-center">
+        <h4>{device.manufacturer} {device.model}</h4>
+        <p>Phone Number: {device.phoneNumber}</p>
+        <p>IMEI: {device.imei}</p>
+        <button className="btn btn-danger">Switch Number for Device</button>
         <div style = {{margin: '20px'}}></div>
       </div>
     </div>
