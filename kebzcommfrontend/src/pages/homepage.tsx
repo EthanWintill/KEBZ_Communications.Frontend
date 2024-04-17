@@ -12,6 +12,8 @@ const HomePage: React.FC = () => {
     const [selectedplanId, setSelectedplanId] = useState<string | null>(null);
     const [devicesByPlan, setDevicesByPlan] = useState<{ [planId: string]: Device[] }>({});
     const [allPlans, setAllPlans] = useState<PhonePlan[]>([]);
+    const [totalMonthlyPrice, setTotalPrice] = useState<number>(0);
+
     const currentUserId = sessionStorage.getItem('userId')
 
 
@@ -39,6 +41,12 @@ const HomePage: React.FC = () => {
             );
             setDevicesByPlan(devicesMap);
 
+            const totalMonthlyPrice = fetchedSuperPlans.reduce((accumulator : number, currentPlan : Superplan) => {
+                const price = currentPlan.planObj?.price;
+                return price ? accumulator + price : accumulator;
+            }, 0)
+            setTotalPrice(totalMonthlyPrice);
+
            // Fetch all plans for dropdown
             const allPlansData = await getAllPlans();
             setAllPlans(allPlansData);            
@@ -65,6 +73,7 @@ const HomePage: React.FC = () => {
     return (
         <div className="home-page container">
             <h2>Phone Plans</h2>
+            <h3>Total Monthly Price: ${totalMonthlyPrice}</h3>
             <table className='table table-responive table-striped table-hover'>
                 <thead>
                     <tr>
@@ -132,7 +141,6 @@ const HomePage: React.FC = () => {
                     </div>
                 </div>
             </div>
-
         </div>
     );
 };
