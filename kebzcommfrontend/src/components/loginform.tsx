@@ -48,7 +48,6 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
           setError('Login failed. Please try again.');
         }
         return;
-        //throw new Error('Login failed');
       }
 
       const data = await response.json();

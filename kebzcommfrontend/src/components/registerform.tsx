@@ -42,7 +42,6 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onError }) => {
       const errMsg = error.response?.data?.message || 'Registration failed. Username or Email may already exist. Password must include at least 8 characters and a number';
       setError(errMsg);  // Set the error state to the error message received from the server or a default message
       onError(errMsg);  // Call the onError prop function with the error message
-      //onError(error.message || 'Registration failed due to an unknown error');
     }
   };
 
