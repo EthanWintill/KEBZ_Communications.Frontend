@@ -1,15 +1,6 @@
 // import React from "react";
 // import { User } from "../types";
 
-// export const AccountCard: React.FC<User> = (user) => {
-//     return (
-//         <>
-//             <h1>{user.firstName} {user.lastName}</h1>
-//             <p>{user.username}</p>
-//             <p>{user.email}</p>
-//         </>
-//     );
-// }
 
 
 
@@ -37,12 +28,8 @@ export const AccountCard: React.FC<User> = (user) => {
     };
 
     return (<div className="container">
-            <div className="row row justify-content-center">
-                <h1> Edit Account Info</h1>
-            </div>
-            <div className="row">
-                <div className="col-2"></div>
-                <div className="col-8">
+            <div className="row justify-content-center">
+                <div className="col-10">
                     <form onSubmit={handleSubmit}>
                         <div className="form-row">
                             <div className="form-group col">
@@ -66,9 +53,9 @@ export const AccountCard: React.FC<User> = (user) => {
                                 />
                             </div>
                         </div>
-                        <div className="form-group row">
-                            <label htmlFor="username" className="col-sm-2">Username:</label>
-                            <div className="col-sm-10">
+                        <div className="form-group row " >
+                            <label htmlFor="username" className="col-sm-3">Username:</label>
+                            <div className="col-sm-9">
                                 <input
                                     type="text"
                                     id="username"
@@ -81,26 +68,24 @@ export const AccountCard: React.FC<User> = (user) => {
                         </div>
                         
                         <div className="form-group row" >
-                            <label htmlFor="email" className="col-sm-2">Email:</label>
-                            <div className="col-sm-10">
+                            <label htmlFor="email" className="col-sm-3">Email:</label>
+                            <div className="col-sm-9">
                                 <input
                                     type="email"
                                     id="email"
                                     name="email"
                                     value={editedUser.email}
-                                    className="form-control-plaintext col-sm-10"
+                                    className="form-control"
                                 />
                             </div>
                         </div>
                         <div className="row justify-content-end">
                 <div className="col-3">
-                        <button type="submit" className="btn btn-primary">Submit</button>
+                        <button type="submit" className="btn btn-primary">Update</button>
                         </div></div>
                         
                     </form>
                 </div>
-                <div className="col-2"></div>
-
             </div>
     </div>
     );

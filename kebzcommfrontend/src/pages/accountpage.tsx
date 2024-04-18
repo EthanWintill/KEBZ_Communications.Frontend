@@ -28,7 +28,7 @@ const AccountPage: React.FC = () => {
           <div className="row justify-content-center">
               <div className="col-md-8">
                   <div className="card">
-                      <div className="card-header">Account Information</div>
+                      <div className="card-header"><h2>Account Information</h2></div>
                       <div className="card-body">
                           <AccountCard {...user} />
                       </div>
