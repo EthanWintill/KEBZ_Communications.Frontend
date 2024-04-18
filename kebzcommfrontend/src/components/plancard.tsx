@@ -10,6 +10,9 @@ interface PhonePlanCardProps {
   superplan: Superplan;
   onClick: () => void;
 }
+interface ExpandedPhonePlanCardProps {
+  superplan: Superplan;
+}
 
 export const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ superplan, onClick }) => {
   const plan = superplan.planObj
@@ -31,34 +34,50 @@ export const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ superplan, onClick
       <td>
         <Link to={editLink} state={{
           state: { superplan } // Pass the superplan object as state
-        }as any} className='btn btn-info'>Edit</Link>
+        } as any} className='btn btn-info'>Edit</Link>
       </td>
       <td>
-      <button onClick={() => {
-            removeUserPlan(currentuser, superplan.associatedUserPlanID);
-            setTimeout(() => {
-              window.location.reload();
-            }, 500);
+        <button onClick={() => {
+          removeUserPlan(currentuser, superplan.associatedUserPlanID);
+          setTimeout(() => {
+            window.location.reload();
+          }, 500);
         }} className="btn btn-danger">Remove Plan</button>
       </td>
     </>
   );
 }
 
-export const PhonePlanCardExpanded: React.FC<PhonePlanCardProps> = ({ superplan, onClick }) => {
+export const PhonePlanCardExpanded: React.FC<ExpandedPhonePlanCardProps> = ({ superplan }) => {
   const plan = superplan.planObj
   return (
-    <div className="card">
-      <div className="card-body">
-        <h5 className="card-title">{plan?.planName}</h5>
-        <p className="card-text">Price: ${plan?.price}</p>
-        <p className="card-text">{plan?.planDescription}</p>
-        <ul className="list-group list-group-flush">
-          <li className="list-group-item">Device Limit: {plan?.deviceLimit}</li>
-          <li className="list-group-item">Text Limit: {plan?.textLimit === -1 ? 'Unlimited' : plan?.textLimit}</li>
-          <li className="list-group-item">Minute Limit: {plan?.minuteLimit === -1 ? 'Unlimited' : plan?.minuteLimit}</li>
-          <li className="list-group-item">Data Limit: {plan?.dataLimit === -1 ? 'Unlimited' : plan?.dataLimit}</li>
-        </ul>
+    <div className="col-8">
+
+      <div className="card">
+        <div className="card-header">
+          <div className="row">
+            <h5 className="col-5">{plan?.planName}</h5>
+            <h5 className="col-4 offset-3">${plan?.price}/Month</h5>
+          </div>
+        </div>
+        <div className="card-body">
+          <div className="row justify-content-start">
+            <strong className='col-4 offset-0'>
+              <h5>Description</h5>
+            </strong>
+          </div>
+          <div className="row justify-content-start">
+            <p className="col-12 offset-0">{plan?.planDescription}</p>
+          </div>
+    <br />
+          <div className="row">
+            <h5 className='col-3'>{plan?.dataLimit === -1 ? 'Unlimited' : plan?.dataLimit} Data</h5>
+            <h5 className='col-3'>{plan?.textLimit === -1 ? 'Unlimited' : plan?.textLimit} Texts</h5>
+            <h5 className='col-3'>{plan?.minuteLimit === -1 ? 'Unlimited' : plan?.minuteLimit} Minutes</h5>
+            <h5 className='col-3'>Up to {plan?.deviceLimit} Devices</h5>
+          </div>
+        </div>
+
       </div>
     </div>
   );
