@@ -40,13 +40,19 @@ const DeviceCard: React.FC<DeviceCardProps> = ({ device }) => {
 }
 
 export const DeviceCardButtons: React.FC<DeviceCardButtonProps> = ({ device }) => {
+
   return (
     <div className="d-flex justify-content-center align-items-center">
       <div className="text-center">
         <h4>{device.manufacturer} {device.model}</h4>
         <p>Phone Number: {device.phoneNumber}</p>
         <p>IMEI: {device.imei}</p>
-        <button onClick={() => removeDevice(device.deviceId)} className="btn btn-danger">Remove Device</button>
+        <button onClick={() => {
+            removeDevice(device.deviceId);
+            setTimeout(() => {
+              window.location.reload();
+            }, 500);
+        }} className="btn btn-danger">Remove Device</button>
         <div style = {{margin: '20px'}}></div>
       </div>
     </div>
@@ -54,6 +60,7 @@ export const DeviceCardButtons: React.FC<DeviceCardButtonProps> = ({ device }) =
 }
 
 export const DeviceCardButtonsSwitch: React.FC<DeviceCardButtonSwitchProps> = ({ device, onSelected }) => {
+
   return (
     <div className="d-flex justify-content-center align-items-center" onClick={() => {onSelected(device)}}>
       <div className="text-center">
