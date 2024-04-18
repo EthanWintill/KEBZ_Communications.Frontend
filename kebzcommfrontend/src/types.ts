@@ -1,8 +1,8 @@
 export interface PhonePlan {
-    id: number;
-    name: string;
+    planId: string;
+    planName: string;
     price: number;
-    description: string;
+    planDescription: string;
     deviceLimit: number;
     textLimit: number;
     minuteLimit: number;
@@ -11,7 +11,7 @@ export interface PhonePlan {
 
 
 export interface Device {
-    id: number;
+    deviceId: string;
     manufacturer: string;
     model: string;
     phoneNumber: string;
@@ -19,10 +19,34 @@ export interface Device {
   }
   
   export interface User {
-    id: number;
+    id: string;
     username: string,
     email: string,
-    firstname: string,
-    lastname: string,
+    firstName: string,
+    lastName: string,
   }
+
+  export interface UserPlan {
+    userPlanId: string;
+    userId: string;
+    planId: string;
+    user?: User | null;
+    plan?: PhonePlan | null;
+    startDate: Date;
+    endDate: Date;
+  }
+
+export  interface Superplan {
+    planObj: PhonePlan | undefined;
+    associatedUserPlanID: string;
+}
+
   
+export interface MyFormData {
+  firstName: string;
+  lastName: string;
+  userName: string;
+  password: string;
+  email: string;
+  phoneNumber: string;
+}

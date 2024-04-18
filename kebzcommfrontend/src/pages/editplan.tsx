@@ -1,43 +1,60 @@
 // EditPlanPage.tsx
 
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom'; // Import useParams to access URL parameters
-import { getPlanById, getDevicesFromPlan} from '../api';
-import {PhonePlanCard} from '../components/plancard';
-import DeviceCard from '../components/devicecard';
+import { useParams, useLocation } from 'react-router-dom'; // Import useParams to access URL parameters
+import { getPlanById, getUserPlanDevices, removeDevice} from '../api';
+import {PhonePlanCardExpanded} from '../components/plancard';
+import {DeviceCardButtons} from '../components/devicecard';
 import { PhonePlan, Device } from '../types';
+import { Link } from 'react-router-dom';
 
 const EditPlanPage: React.FC = () => {
-  const { planId } = useParams<{ planId: string }>(); // Get the planId parameter from the URL
-  const [plan, setPlan] = useState<PhonePlan | null>(null);
   const [devices, setDevices] = useState<Device[]>([]);
+  const [deviceCount, setDeviceCount] = useState<number>(0);
+  let { state } = useLocation();
+  const superplan = state.state.superplan;
 
   useEffect(() => {
     const fetchData = async () => {
-      // Fetch the selected plan by its ID
-      const fetchedPlan = await getPlanById(parseInt(planId+"", 10));
-      setPlan(fetchedPlan || null);
+
 
       // Fetch devices associated with the selected plan
-      const fetchedDevices = await getDevicesFromPlan(parseInt(planId+"", 10));
+      const fetchedDevices = await getUserPlanDevices(superplan.associatedUserPlanID, sessionStorage.getItem('userId'));
       setDevices(fetchedDevices);
+      setDeviceCount(fetchedDevices.length);
     };
 
     fetchData();
-  }, [planId]);
+  }, []);
 
-  if (!plan) {
+  if (!superplan) {
     return <div>Loading...</div>;
   }
+
+  const atLimit = deviceCount < superplan.planObj.deviceLimit;
 
   return (
     <div className="edit-plan-page">
       <h2>Edit Plan</h2>
-      <PhonePlanCard plan={plan} onClick={()=>{}}/> {/* Display the selected plan */}
+      <PhonePlanCardExpanded superplan={superplan} onClick={()=>{}}/> {/* Display the selected plan */}
       <h3>Associated Devices</h3>
       {devices.map((device) => (
-        <DeviceCard key={device.id} device={device} /> // Display associated devices
+        <div className = "border p-3">
+          <DeviceCardButtons device={device} />
+        </div>
+        //TODO
+        // ADD SWITCH NUMBERS FUNCTIONALITY
       ))}
+      <div style={{margin: '20px'}}></div>
+      <Link 
+            to={atLimit ? "./adddevicepage" : "/"} 
+            state={{
+              state: {superplan}
+            }}
+            className={`btn ${atLimit ? "btn-primary" : "btn-secondary"}`} >
+            {atLimit ? "Add Device" : "Maximum Devices Reached"}
+        </Link>
+      <Link to={"./switchphonenumbers"} className="btn btn-primary" state={{state: {superplan}}}>Switch Phone Numbers</Link>
     </div>
   );
 };

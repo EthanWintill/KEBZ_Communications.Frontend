@@ -11,7 +11,7 @@ const AccountPage: React.FC = () => {
 
     useEffect(() => {
       const fetchData = async () => {
-        const fetchedUser = await getUserById(parseInt(userId+""));
+        const fetchedUser = await getUserById(sessionStorage.getItem('userId'));
         setUser(fetchedUser || null);
       }
     
@@ -23,12 +23,20 @@ const AccountPage: React.FC = () => {
     if (!user){
         return <div>Loading...</div>;
     }
-
-    return(
-        <>
-            <AccountCard {...user} />
-        </>
-    );
+    return (
+      <div className="container mt-4">
+          <div className="row justify-content-center">
+              <div className="col-md-8">
+                  <div className="card">
+                      <div className="card-header"><h2>Account Information</h2></div>
+                      <div className="card-body">
+                          <AccountCard {...user} />
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  );
 }
 
 export default AccountPage;
