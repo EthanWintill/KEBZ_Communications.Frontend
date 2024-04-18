@@ -134,7 +134,12 @@ const HomePage: React.FC = () => {
                     <div className='dropdown'>
                         <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
                             {allPlans.map((plan) => (
-                                <button className="dropdown-item" onClick={() => { handleAddPlan(plan.planId) }} key={plan.planId} value={plan.planId}> {plan.planName}</button>
+                                <button className="dropdown-item" onClick={() => { 
+                                    handleAddPlan(plan.planId);
+                                    setTimeout(() => {
+                                        window.location.reload();
+                                    }, 500);
+                                }} key={plan.planId} value={plan.planId}> {plan.planName}</button>
                             ))}
                         </div>
                         <button className='btn btn-dark btn-lg text-right' type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Add Plan</button>

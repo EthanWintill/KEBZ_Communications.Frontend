@@ -37,7 +37,12 @@ export const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ superplan, onClick
         }as any} className='btn btn-info'>Edit</Link>
       </td>
       <td>
-        <button onClick={() => {removeUserPlan(currentuser,superplan.associatedUserPlanID)}} className='btn btn-danger'>Remove</button>
+      <button onClick={() => {
+            removeUserPlan(currentuser, superplan.associatedUserPlanID);
+            setTimeout(() => {
+              window.location.reload();
+            }, 500);
+        }} className="btn btn-danger">Remove Plan</button>
       </td>
     </>
   );
