@@ -39,10 +39,10 @@ const EditPlanPage: React.FC = () => {
       <PhonePlanCardExpanded superplan={superplan} onClick={()=>{}}/> {/* Display the selected plan */}
       <h3>Associated Devices</h3>
       {devices.map((device) => (
-        <DeviceCardButtons device={device} /> // Display associated devices
+        <div className = "border p-3">
+          <DeviceCardButtons device={device} />
+        </div>
         //TODO
-        // ADD REMOVE DEVICE BUTTON
-        // ADD ADD DEVICE BUTTON
         // ADD SWITCH NUMBERS FUNCTIONALITY
       ))}
       <div style={{margin: '20px'}}></div>
@@ -54,6 +54,7 @@ const EditPlanPage: React.FC = () => {
             className={`btn ${atLimit ? "btn-primary" : "btn-secondary"}`} >
             {atLimit ? "Add Device" : "Maximum Devices Reached"}
         </Link>
+      <Link to={"./switchphonenumbers"} className="btn btn-primary" state={{state: {superplan}}}>Switch Phone Numbers</Link>
     </div>
   );
 };

@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { Superplan } from '../types';
+import { addDevice } from '../api';
 
 interface FormData {
   manufacturer: string;
@@ -39,23 +40,7 @@ const DeviceForm: React.FC<DeviceFormProps> = ({ superplan, onSubmit }) => {
     e.preventDefault();
     //TODO:
     // move this into an api call in api.ts
-    try {
-      const response = await fetch('https://localhost:5001/api/device', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify(formData),
-      });
-      console.log(response);
-      if (!response.ok){
-        throw new Error('Device creation failed');
-      }
-
-      const data = await response.json();
-    } catch (error) {
-      console.log(error);
-    }
+    addDevice(JSON.stringify(formData));
 
     onSubmit(formData);
 
