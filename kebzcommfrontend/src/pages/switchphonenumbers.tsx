@@ -22,6 +22,9 @@ const handleSelected = (device: Device) => {
   } else {
     switchNumbers(selectedDevice, device);
     selectedDevice = null;
+    setTimeout(() => {
+        window.location.reload();
+      }, 500);
   }
 
 }
