@@ -28,8 +28,6 @@ const handleSelected = (device: Device) => {
 
   useEffect(() => {
     const fetchData = async () => {
-
-
       // Fetch devices associated with the selected plan
       const fetchedDevices = await getUserDevices(currentUserId);
       setDevices(fetchedDevices);

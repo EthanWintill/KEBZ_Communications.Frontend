@@ -14,7 +14,7 @@ interface FormData {
 }
 
 interface DeviceFormProps {
-  superplan: Superplan; 
+  superplan: Superplan;
   onSubmit: (formData: FormData) => void;
 }
 
@@ -27,6 +27,8 @@ const DeviceForm: React.FC<DeviceFormProps> = ({ superplan, onSubmit }) => {
     userId: sessionStorage.getItem('userId')!,
     userPlanId: superplan.associatedUserPlanID
   });
+  const [popup, setpopup] = useState<string | null>(null);  // State for storing server popup messages
+
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -40,7 +42,14 @@ const DeviceForm: React.FC<DeviceFormProps> = ({ superplan, onSubmit }) => {
     e.preventDefault();
     //TODO:
     // move this into an api call in api.ts
-    addDevice(JSON.stringify(formData));
+    const response = await addDevice(JSON.stringify(formData));
+    console.log(response)
+    if (response['response']) {
+      setpopup(response['response']['data']);
+    }else{
+      setpopup('device added successfully');
+    }
+
 
     onSubmit(formData);
 
@@ -48,6 +57,7 @@ const DeviceForm: React.FC<DeviceFormProps> = ({ superplan, onSubmit }) => {
 
   return (
     <form onSubmit={handleSubmit}>
+      {popup && <div className={`alert ${popup !== 'device added successfully' ? 'alert-danger' : 'alert-success'}`} role="alert">{popup}</div>} {/* Display the popup message if it exists */}
       <div>
         <label htmlFor="manufacturer">Manufacturer:</label>
         <input type="text" id="manufacturer" name="manufacturer" value={formData.manufacturer} onChange={handleChange} />
