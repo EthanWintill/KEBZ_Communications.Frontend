@@ -2,9 +2,9 @@
 
 import React, { useState, useEffect } from 'react';
 import { useParams, useLocation } from 'react-router-dom'; // Import useParams to access URL parameters
-import { getPlanById, getUserPlanDevices, removeDevice} from '../api';
-import {PhonePlanCardExpanded} from '../components/plancard';
-import {DeviceCardButtons} from '../components/devicecard';
+import { getPlanById, getUserPlanDevices, removeDevice } from '../api';
+import { PhonePlanCardExpanded } from '../components/plancard';
+import { DeviceCardButtons } from '../components/devicecard';
 import { PhonePlan, Device } from '../types';
 import { Link } from 'react-router-dom';
 
@@ -35,26 +35,36 @@ const EditPlanPage: React.FC = () => {
 
   return (
     <div className="edit-plan-page">
-      <h2>Edit Plan</h2>
-      <PhonePlanCardExpanded superplan={superplan} onClick={()=>{}}/> {/* Display the selected plan */}
+      <h1>Edit Plan</h1>
+      <div className="row justify-content-center">
+
+        <PhonePlanCardExpanded superplan={superplan} /> {/* Display the selected plan */}
+      </div>
+      <div style={{ margin: '20px' }}></div>
       <h3>Associated Devices</h3>
-      {devices.map((device) => (
-        <div className = "border p-3">
-          <DeviceCardButtons device={device} />
+      <div className="container mt-4">
+        <div className="row">
+          {devices.map((device) => (
+            <DeviceCardButtons device={device} />
+          ))}
         </div>
-        //TODO
-        // ADD SWITCH NUMBERS FUNCTIONALITY
-      ))}
-      <div style={{margin: '20px'}}></div>
-      <Link 
-            to={atLimit ? "./adddevicepage" : "/"} 
+        <div style={{ margin: '20px' }} ></div>
+        <div className='row justify-content-center'>
+          <Link to={"./switchphonenumbers"} className="btn btn-info col-3" state={{ state: { superplan } }}>Switch Phone Numbers</Link>
+          <div className="col-5"></div>
+          <Link
+            to={atLimit ? "./adddevicepage" : "/"}
             state={{
-              state: {superplan}
+              state: { superplan }
             }}
-            className={`btn ${atLimit ? "btn-primary" : "btn-secondary"}`} >
+            className={`btn ${atLimit ? "btn-primary" : "btn-secondary"} col-3`} >
             {atLimit ? "Add Device" : "Maximum Devices Reached"}
-        </Link>
-      <Link to={"./switchphonenumbers"} className="btn btn-primary" state={{state: {superplan}}}>Switch Phone Numbers</Link>
+          </Link>
+        </div>
+      </div>
+      <div style={{ margin: '20px' }} ></div>
+
+
     </div>
   );
 };
