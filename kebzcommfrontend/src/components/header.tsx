@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/kebz-logo.png';
 
-function logout(){
+export function logout(){
   // Clear user authentication token or data
   localStorage.removeItem('token');  // Remove the token from localStorage
   sessionStorage.clear();

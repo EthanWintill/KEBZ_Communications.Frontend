@@ -12,7 +12,6 @@ const AccountPage: React.FC = () => {
     useEffect(() => {
       const fetchData = async () => {
         const fetchedUser = await getUserById(sessionStorage.getItem('userId'));
-        console.log('fet ' + fetchedUser)
         setUser(fetchedUser || null);
       }
     
