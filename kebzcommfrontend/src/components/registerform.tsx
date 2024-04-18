@@ -18,6 +18,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onError }) => {
     phoneNumber: ''
   });
 
+  const [error, setError] = useState<string | null>(null);  // State for storing server error messages
+
+
   const navigate = useNavigate();
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -36,13 +39,17 @@ const RegisterForm: React.FC<RegisterFormProps> = ({ onSuccess, onError }) => {
       onSuccess();
       navigate('/login');
     } catch (error: any) {
-      onError(error.message || 'Registration failed due to an unknown error');
+      const errMsg = error.response?.data?.message || 'Registration failed. Username or Email may already exist. Password must include at least 8 characters and a number';
+      setError(errMsg);  // Set the error state to the error message received from the server or a default message
+      onError(errMsg);  // Call the onError prop function with the error message
     }
   };
 
   return (
     <form onSubmit={handleSubmit} className="row justify-content-center">
       <div className="col-md-6">
+        {error && <div className="alert alert-danger" role="alert">{error}</div>} {/* Display the error message if it exists */}
+
         {/* Dynamically creating form fields based on formData state */}
         {Object.entries(formData).map(([key, value]) => (
           <div className="form-group" key={key}>

@@ -11,7 +11,7 @@ export interface PhonePlan {
 
 
 export interface Device {
-    id: string;
+    deviceId: string;
     manufacturer: string;
     model: string;
     phoneNumber: string;
