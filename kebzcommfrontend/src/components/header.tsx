@@ -7,6 +7,7 @@ function logout(){
   // Clear user authentication token or data
   localStorage.removeItem('token');  // Remove the token from localStorage
   sessionStorage.clear();
+  
   // Redirect to the login page
   window.location.href = '/login';  // Change the location to the login page, causing a page reload
 }
