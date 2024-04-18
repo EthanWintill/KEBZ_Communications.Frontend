@@ -1,6 +1,8 @@
 import React from 'react';
 
-const DeviceCard: React.FC<{ device: any }> = ({ device }) => {
+const DeviceCardGallery: React.FC<{ device: any }> = ({ device }) => {
+    console.log("Image URL:", device.imageUrl); // This will log the image URL to the console
+    
     return (
         <div className="card">
             <img src={device.imageUrl} className="card-img-top" alt={device.model} />
@@ -13,4 +15,4 @@ const DeviceCard: React.FC<{ device: any }> = ({ device }) => {
     );
 };
 
-export default DeviceCard;
+export default DeviceCardGallery;

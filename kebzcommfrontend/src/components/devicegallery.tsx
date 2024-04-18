@@ -1,44 +1,44 @@
 import React, { useState } from 'react';
-import DeviceCard from './devicecardgallery'; // Make sure the path is correct
-import { BestDevice } from '../types';  // Adjust path as needed
+import DeviceCard from './devicecardgallery'; 
+import { BestDevice } from '../types';  
 
 const DeviceGallery: React.FC = () => {
     const initialDevices: BestDevice[] = [
         {
             deviceId: '1',
-            model: 'Apple iPhone 15',
+            model: 'iPhone 15',
             manufacturer: 'Apple',
-            imageUrl: '/images/iphone15.jpg'
+            imageUrl: '/publicassets/iphone15.jpg'  
         },
         {
             deviceId: '2',
-            model: 'Samsung Galaxy S21',
+            model: 'Galaxy S21',
             manufacturer: 'Samsung',
-            imageUrl: '/images/galaxys21.jpg'
+            imageUrl: '/publicassets/galaxy21.jpg'  
         },
         {
             deviceId: '3',
             model: 'Xperia 10 III',
             manufacturer: 'Sony',
-            imageUrl: '/images/xperia10iii.jpg'
+            imageUrl: '/publicassets/xperia10iii.jpg'  
         },
         {
             deviceId: '4',
-            model: 'Motorola Moto G Power (2022)',
+            model: 'Moto G Power (2022)',
             manufacturer: 'Motorola',
-            imageUrl: '/images/motogpower2022.jpg'
+            imageUrl: '/publicassets/motogpower2022.jpg'  
         },
         {
             deviceId: '5',
             model: 'LG Velvet',
             manufacturer: 'LG',
-            imageUrl: '/images/lgvelvet.jpg'
+            imageUrl: '/publicassets/lgvelvet.jpg'  
         },
         {
             deviceId: '6',
             model: 'Nokia G50',
             manufacturer: 'Nokia',
-            imageUrl: '/images/nokiag50.jpg'
+            imageUrl: '/publicassets/nokiag50.jpg'  
         }
     ];
 
