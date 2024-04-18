@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/kebz-logo.png';
-import DeviceGallery from '../components/devicegallery'; // Make sure the path is correct
+import DeviceGallery from '../components/devicegallery'; 
 
 const LandingPage: React.FC = () => {
     const navigate = useNavigate();
     const [buttonText, setButtonText] = useState("Get Started");
 
     useEffect(() => {
-        const token = localStorage.getItem('token') || sessionStorage.getItem('token');
+        const token = localStorage.getItem('token');
         if (token) {
             setButtonText("View Your Plans");
         }

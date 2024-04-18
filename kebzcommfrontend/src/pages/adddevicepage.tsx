@@ -12,7 +12,7 @@ const CreateDevicePage: React.FC = () => {
 
     return (
       <div className="editplan article container mt-5">
-        <h2 text-left mt-4>Add New Device</h2>
+        <h2 className="mt-4">Add New Device</h2>
             <DeviceForm onSubmit={handleSubmit} superplan={superplan} />
       </div>
     );
