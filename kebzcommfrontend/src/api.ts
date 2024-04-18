@@ -4,6 +4,7 @@ import { promises } from 'dns';
 import { PhonePlan, Device, User, UserPlan, Superplan } from './types'; // Import Plan interface
 import axios from 'axios';
 import { MyFormData } from './types';
+import { logout } from './components/header';
 
 // Function to register a user
 export const registerUser = async (formData: MyFormData): Promise<User | null> => {
@@ -33,6 +34,11 @@ export const http = axios.create({
   },
 });
 
+const check401 = (error: any) => {
+  if(error.response.status === 401)
+    logout();
+}
+
 
 //GET ALL
 export const getAllPlans = async (): Promise<PhonePlan[]> => {
@@ -40,7 +46,7 @@ export const getAllPlans = async (): Promise<PhonePlan[]> => {
     const response = await http.get<Array<PhonePlan>>('/plan');
     return response.data; // Return the data from the response
   } catch (error) {
-    console.log(error);
+    check401(error);
     throw new Error('Failed to fetch plans'); // Throw an error if the request fails
   }
 };
@@ -50,7 +56,7 @@ export const getAllDevices = async (): Promise<Device[]> => {
     const response = await http.get<Array<Device>>('/device');
     return response.data; // Return the data from the response
   } catch (error) {
-    console.log(error);
+    check401(error);
     throw new Error('Failed to fetch devices'); // Throw an error if the request fails
   }
 };
@@ -71,12 +77,13 @@ export const getPlanById = async (planId: string | undefined): Promise<PhonePlan
 
 
 
-export const getUserById = async (userId: string | null): Promise<User | null> => {
+export const getUserById = async (userId: string | null): Promise<User | any> => {
   try {
     const response = await http.get<User>('/user/' + userId);
     return response.data
-  } catch (error) {
-    throw new Error;
+  } catch (error: any) {
+    check401(error);
+    return error
   }
 };
 
@@ -99,7 +106,7 @@ export const getUserPlans = async (userId: string | null): Promise<any> => {
 
     return superplans;
   } catch (error) {
-    console.log(error);
+    check401(error);
     throw new Error();
   }
 }
@@ -124,7 +131,7 @@ export const getUserPlanDevices = async (userPlanId: string | undefined, userId:
     console.log(response);
     return response.data;
   } catch (error) {
-    console.log(error);
+    check401(error);
     throw new Error();
   }
 }
@@ -155,7 +162,7 @@ export const updateUser = async (editedUser: User): Promise<void> => {
     const response = await http.put(`/user/${editedUser.id}`, editedUser);
     console.log(response);
   } catch (error) {
-    console.log(error);
+    check401(error);
     throw new Error();
   }
 }
@@ -165,7 +172,7 @@ export const removeDevice = async (deviceId: string | undefined): Promise<void> 
     const response = http.delete(`/device/${deviceId}`)
     console.log("BRUH" + deviceId);
   } catch (error) {
-    console.log(error);
+    check401(error);
     throw new Error();
   }
 }
@@ -183,7 +190,7 @@ export const removeUserPlan = async (userId: string | null, planId: string | und
     const response = await http.delete(`/user/${userId}/userplan/${planId}`);
     return response.data;
   } catch (error) {
-    console.log(error);
+    check401(error);
     throw new Error()
   }
 }
@@ -196,14 +203,12 @@ export const switchNumbers = async (device1: Device, device2: Device): Promise<v
     device1.phoneNumber = device2.phoneNumber;
     device2.phoneNumber = device1Number;
 
-
     const device1PutRes = await http.put(`/device/${device1?.deviceId}`, device1);
     const device2PutRes = await http.put(`/device/${device2?.deviceId}`, device2);
 
-
     console.log(device1PutRes);
   } catch (error) {
-    console.log(error);
+    check401(error);
     throw new Error();
   }
 }
