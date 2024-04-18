@@ -21,6 +21,7 @@ interface DeviceCardButtonProps {
 
 interface DeviceCardButtonSwitchProps {
   device: Device;
+  onSelected: (device: Device) => void;
 }
 
 const DeviceCard: React.FC<DeviceCardProps> = ({ device }) => {
@@ -52,9 +53,9 @@ export const DeviceCardButtons: React.FC<DeviceCardButtonProps> = ({ device }) =
   );
 }
 
-export const DeviceCardButtonsSwitch: React.FC<DeviceCardButtonSwitchProps> = ({ device }) => {
+export const DeviceCardButtonsSwitch: React.FC<DeviceCardButtonSwitchProps> = ({ device, onSelected }) => {
   return (
-    <div className="d-flex justify-content-center align-items-center">
+    <div className="d-flex justify-content-center align-items-center" onClick={() => {onSelected(device)}}>
       <div className="text-center">
         <h4>{device.manufacturer} {device.model}</h4>
         <p>Phone Number: {device.phoneNumber}</p>

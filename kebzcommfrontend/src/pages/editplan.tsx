@@ -43,8 +43,6 @@ const EditPlanPage: React.FC = () => {
           <DeviceCardButtons device={device} />
         </div>
         //TODO
-        // ADD REMOVE DEVICE BUTTON
-        // ADD ADD DEVICE BUTTON
         // ADD SWITCH NUMBERS FUNCTIONALITY
       ))}
       <div style={{margin: '20px'}}></div>

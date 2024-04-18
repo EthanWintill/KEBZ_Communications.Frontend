@@ -166,15 +166,16 @@ export const removeDevice = async (deviceId: string | undefined): Promise<void> 
     throw new Error();
   }
 }
-export const addDevice = async (UserPlanId: string | undefined, device: Device): Promise<void> => {
+export const addDevice = async ( devicedata: any): Promise<void> => {
   try {
-    const response = await http.post(`/device`, device);
+    const response = await http.post(`/device`, devicedata);
     console.log(response);
   } catch (error) {
     console.log(error)
     throw new Error();
   }
 }
+
 export const removeUserPlan = async (userId: string | null, planId: string | undefined): Promise<void> => {
   try {
     const response = await http.delete(`/user/${userId}/userplan/${planId}`);
@@ -184,16 +185,21 @@ export const removeUserPlan = async (userId: string | null, planId: string | und
     throw new Error()
   }
 }
-export const switchNumbers = async (device1: Device | undefined, device2: Device | undefined): Promise<void> => {
+export const switchNumbers = async (device1: Device, device2: Device): Promise<void> => {
+  if (!device1 || !device2) {
+    throw new Error('Invalid device');
+  }
   try {
-    const device1Number = device1?.phoneNumber
-    const device1PatchRes = await http.patch(`/device/${device1?.deviceId}`, {
-      phoneNumber: device2?.phoneNumber
-    });
-    const device2PatchRes = await http.patch(`/device/${device2?.deviceId}`, {
-      phoneNumber: device1Number
-    })
-    console.log(device1PatchRes);
+    const device1Number = device1.phoneNumber
+    device1.phoneNumber = device2.phoneNumber;
+    device2.phoneNumber = device1Number;
+
+
+    const device1PutRes = await http.put(`/device/${device1?.deviceId}`, device1);
+    const device2PutRes = await http.put(`/device/${device2?.deviceId}`, device2);
+
+    
+    console.log(device1PutRes);
   } catch (error) {
     console.log(error);
     throw new Error();
