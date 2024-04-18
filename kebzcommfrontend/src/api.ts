@@ -104,7 +104,10 @@ export const getUserPlans = async (userId: string | null): Promise<any> => {
   }
 }
 
-export const getUserDevices = async (userId: string | undefined): Promise<Device[]> => {
+export const getUserDevices = async (userId: string | null): Promise<Device[]> => {
+  if (!userId) {
+    throw new Error('Invalid user ID');
+  }
   try {
     const response = await http.get<Array<Device>>(`/device/${userId}/device`);
     console.log(response);
@@ -198,7 +201,7 @@ export const switchNumbers = async (device1: Device, device2: Device): Promise<v
     const device1PutRes = await http.put(`/device/${device1?.deviceId}`, device1);
     const device2PutRes = await http.put(`/device/${device2?.deviceId}`, device2);
 
-    
+
     console.log(device1PutRes);
   } catch (error) {
     console.log(error);

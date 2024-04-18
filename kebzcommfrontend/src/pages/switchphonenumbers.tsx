@@ -31,7 +31,7 @@ const handleSelected = (device: Device) => {
 
 
       // Fetch devices associated with the selected plan
-      const fetchedDevices = await getUserPlanDevices(superplan.associatedUserPlanID, currentUserId);
+      const fetchedDevices = await getUserDevices(currentUserId);
       setDevices(fetchedDevices);
     };
 
