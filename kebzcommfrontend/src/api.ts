@@ -111,6 +111,16 @@ export const getUserPlans = async (userId: string | null): Promise<any> => {
   }
 }
 
+export const getUserPlansAsUserPlans = async (userId: string | null) : Promise<UserPlan[]> => {
+  try {
+    const response = await http.get<UserPlan[]>(`/user/${userId}/userplan`);
+    return response.data;
+  } catch (error) {
+    console.log(error);
+    throw new Error();
+  }
+}
+
 export const getUserDevices = async (userId: string | null): Promise<Device[]> => {
   if (!userId) {
     throw new Error('Invalid user ID');
@@ -120,7 +130,7 @@ export const getUserDevices = async (userId: string | null): Promise<Device[]> =
     console.log(response);
     return response.data;
   } catch (error) {
-    console.log("bruh" + error);
+    console.log(error);
     throw new Error();
   }
 }
@@ -170,7 +180,7 @@ export const updateUser = async (editedUser: User): Promise<void> => {
 export const removeDevice = async (deviceId: string | undefined): Promise<void> => {
   try {
     const response = http.delete(`/device/${deviceId}`)
-    console.log("BRUH" + deviceId);
+    console.log(deviceId);
   } catch (error) {
     check401(error);
     throw new Error();

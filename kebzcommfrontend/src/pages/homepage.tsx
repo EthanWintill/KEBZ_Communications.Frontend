@@ -84,6 +84,8 @@ const HomePage: React.FC = () => {
                         <th>Text Limit</th>
                         <th>Minute Limit</th>
                         <th>Data Limit</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
                         <th></th>
                     </tr>
                 </thead>
