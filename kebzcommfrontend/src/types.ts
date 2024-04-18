@@ -17,6 +17,13 @@ export interface Device {
     phoneNumber: string;
     imei: string;
   }
+
+  export interface BestDevice { // Used for Devices in landing page
+    deviceId: string;
+    manufacturer: string;
+    model: string;
+    imageUrl: string; 
+}
   
   export interface User {
     id: string;
