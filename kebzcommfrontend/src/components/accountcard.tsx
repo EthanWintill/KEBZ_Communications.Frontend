@@ -1,15 +1,6 @@
 // import React from "react";
 // import { User } from "../types";
 
-// export const AccountCard: React.FC<User> = (user) => {
-//     return (
-//         <>
-//             <h1>{user.firstName} {user.lastName}</h1>
-//             <p>{user.username}</p>
-//             <p>{user.email}</p>
-//         </>
-//     );
-// }
 
 
 
@@ -36,50 +27,67 @@ export const AccountCard: React.FC<User> = (user) => {
         updateUser(editedUser);
     };
 
-    return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <label htmlFor="firstName">First Name:</label>
-                <input
-                    type="text"
-                    id="firstName"
-                    name="firstName"
-                    value={editedUser.firstName}
-                    onChange={handleChange}
-                />
+    return (<div className="container">
+            <div className="row justify-content-center">
+                <div className="col-10">
+                    <form onSubmit={handleSubmit}>
+                        <div className="form-row">
+                            <div className="form-group col">
+                                <input
+                                    type="text"
+                                    id="firstName"
+                                    name="firstName"
+                                    value={editedUser.firstName}
+                                    onChange={handleChange}
+                                    className="form-control"
+                                />
+                            </div>
+                            <div className="form-group col">
+                                <input
+                                    type="text"
+                                    id="lastName"
+                                    name="lastName"
+                                    value={editedUser.lastName}
+                                    onChange={handleChange}
+                                    className="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div className="form-group row " >
+                            <label htmlFor="username" className="col-sm-3">Username:</label>
+                            <div className="col-sm-9">
+                                <input
+                                    type="text"
+                                    id="username"
+                                    name="username"
+                                    value={editedUser.username}
+                                    onChange={handleChange}
+                                    className="form-control"
+                                />
+                            </div>
+                        </div>
+                        
+                        <div className="form-group row" >
+                            <label htmlFor="email" className="col-sm-3">Email:</label>
+                            <div className="col-sm-9">
+                                <input
+                                    type="email"
+                                    id="email"
+                                    name="email"
+                                    value={editedUser.email}
+                                    className="form-control"
+                                />
+                            </div>
+                        </div>
+                        <div className="row justify-content-end">
+                <div className="col-3">
+                        <button type="submit" className="btn btn-primary">Update</button>
+                        </div></div>
+                        
+                    </form>
+                </div>
             </div>
-            <div>
-                <label htmlFor="lastName">Last Name:</label>
-                <input
-                    type="text"
-                    id="lastName"
-                    name="lastName"
-                    value={editedUser.lastName}
-                    onChange={handleChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="username">Username:</label>
-                <input
-                    type="text"
-                    id="username"
-                    name="username"
-                    value={editedUser.username}
-                    onChange={handleChange}
-                />
-            </div>
-            <div>
-                <label htmlFor="email">Email:</label>
-                <input
-                    type="email"
-                    id="email"
-                    name="email"
-                    value={editedUser.email}
-                    onChange={handleChange}
-                />
-            </div>
-            <button type="submit">Submit</button>
-        </form>
+    </div>
     );
 };
 

@@ -6,8 +6,6 @@ import { Link } from 'react-router-dom';
 import { removeDevice, removeUserPlan } from '../api';
 
 
-
-
 interface PhonePlanCardProps {
   superplan: Superplan;
   onClick: () => void;
@@ -32,7 +30,6 @@ export const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ superplan, onClick
       <td>{plan?.dataLimit === -1 ? 'Unlimited' : plan?.dataLimit}</td>
       <td>
         <Link to={editLink} state={{
-          pathname: editLink,
           state: { superplan } // Pass the superplan object as state
         }as any} className='btn btn-info'>Edit</Link>
       </td>
