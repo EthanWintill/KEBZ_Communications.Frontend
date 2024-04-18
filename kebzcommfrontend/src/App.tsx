@@ -11,7 +11,7 @@ import AccountPage from './pages/accountpage'
 import Register from './pages/registerpage';
 import PrivateRoutes from './components/protectedRoute';
 import SwitchPhoneNumbersPage from './pages/switchphonenumbers';
-
+import LandingPage from './pages/landingpage';
 
 function App() {
   return (
@@ -26,7 +26,7 @@ function App() {
             <Route path="/editplan/switchphonenumbers" Component={SwitchPhoneNumbersPage} />
             <Route path="/editplan" Component={EditPlanPage} />
           </Route>
-          <Route path="/" Component={LoginPage} />
+          <Route path="/" Component={LandingPage} />
           <Route path="/login" Component={LoginPage} />
           <Route path='/register' Component={Register} />
         </Routes>

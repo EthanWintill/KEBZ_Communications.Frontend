@@ -17,6 +17,9 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
     password: ''
   });
 
+  const [error, setError] = useState<string | null>(null);  // State to store the error message
+
+
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
     setFormData(prevState => ({
@@ -39,7 +42,12 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
       });
       console.log(response);
       if (!response.ok){
-        throw new Error('Login failed');
+        if (response.status === 401 || response.status === 400) {
+          setError('Invalid username or password.');  // Set a specific error message
+        } else {
+          setError('Login failed. Please try again.');
+        }
+        return;
       }
 
       const data = await response.json();
@@ -56,6 +64,7 @@ const LoginForm: React.FC<LoginFormProps> = ({ onSubmit }) => {
   return (
     <form onSubmit={handleSubmit} className="row justify-content-center">
       <div className="col-md-6">
+        {error && <div className="alert alert-danger" role="alert">{error}</div>} {/* Display the error message if it exists */}
         <div className="form-group">
           <label htmlFor="inputUsernameLogin" className="label-left">Username:</label>
           <input 
