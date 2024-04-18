@@ -24,14 +24,14 @@ function Header() {
       </Link>
 
       <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
+        {isLoggedIn && <ul className="navbar-nav">
           <li className="nav-item">
             <Link className="nav-link" to="/account">Account</Link>
           </li>
           <li className="nav-item">
             <Link className="nav-link" to="/home">Your Plans</Link>
           </li>
-        </ul>
+        </ul>}
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
             <button className="nav-link btn btn-link" onClick={isLoggedIn ? logout : () => window.location.href = '/login'} 
