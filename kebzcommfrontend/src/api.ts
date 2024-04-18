@@ -169,13 +169,12 @@ export const removeDevice = async (deviceId: string | undefined): Promise<void> 
     throw new Error();
   }
 }
-export const addDevice = async ( devicedata: any): Promise<void> => {
+export const addDevice = async ( devicedata: any): Promise<void | any> => {
   try {
     const response = await http.post(`/device`, devicedata);
-    console.log(response);
-  } catch (error) {
-    console.log(error)
-    throw new Error();
+    return response.status;
+  } catch (error: any) {
+    return error;
   }
 }
 
