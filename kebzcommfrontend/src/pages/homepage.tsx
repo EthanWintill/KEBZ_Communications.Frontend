@@ -16,20 +16,21 @@ const HomePage: React.FC = () => {
 
     const currentUserId = sessionStorage.getItem('userId')
 
-
-    if (!plans) {
-        return <div>Loading...</div>
-    }
-
     const handleAddPlan = async (planId: string) => {
         // Assign the selected plan to the current user
         await addUserPlan(currentUserId, planId);
     };
 
     useEffect(() => {
+        if (!currentUserId) {
+            return; // Correctly handle the absence of a userId without using it conditionally outside useEffect
+        }
         const fetchData = async () => {
             // Fetch plans for the current user
             const fetchedSuperPlans = await getUserPlans(currentUserId);
+            if (fetchedSuperPlans.length === 0) {
+                return;  // Handling case where no plans are returned
+            }
             setPlans(fetchedSuperPlans);
             // Fetch devices for each plan
             const devicesMap: { [userPlanId: string]: Device[] } = {};
@@ -53,7 +54,11 @@ const HomePage: React.FC = () => {
         };
 
         fetchData();
-    }, []);
+    }, [currentUserId]); // Including 'currentUserId' in the dependency array to re-fetch data when it changes
+
+    if (plans.length === 0) {
+        return <div>Loading...</div>; // Ensure this is 'plans.length === 0' to handle empty array correctly
+    }
 
     const togglePlan = async (planId: string) => {
         // If the plan is already selected, deselect it
