@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import logo from '../assets/kebz-logo.png';
 import DeviceGallery from '../components/devicegallery'; 
+import PlanGallery from '../components/plangallery';  // Import the new PlanGallery component
 
 const LandingPage: React.FC = () => {
     const navigate = useNavigate();
@@ -34,6 +35,9 @@ const LandingPage: React.FC = () => {
             </div>
             <div style={{ marginTop: '200px' }}>  {/* Add margin top to push the DeviceGallery down */}
                 <DeviceGallery />
+            </div>
+            <div style={{ marginTop: '20px' }}>
+                <PlanGallery />
             </div>
         </div>
     );
