@@ -25,9 +25,7 @@ const HomePage: React.FC = () => {
         const fetchData = async () => {
             // Fetch plans for the current user
             const fetchedSuperPlans = await getUserPlans();
-            if (fetchedSuperPlans.length === 0) {
-                return;  // Handling case where no plans are returned
-            }
+            
             setPlans(fetchedSuperPlans);
             // Fetch devices for each plan
             const devicesMap: { [userPlanId: string]: Device[] } = {};
@@ -38,6 +36,7 @@ const HomePage: React.FC = () => {
                 })
             );
             setDevicesByPlan(devicesMap);
+
 
             const totalMonthlyPrice = fetchedSuperPlans.reduce((accumulator : number, currentPlan : Superplan) => {
                 const price = currentPlan.planObj?.price;
@@ -50,12 +49,11 @@ const HomePage: React.FC = () => {
             setAllPlans(allPlansData);            
         };
 
+
         fetchData();
     }, []);
 
-    if (plans.length === 0) {
-        return <div>Loading...</div>; // Ensure this is 'plans.length === 0' to handle empty array correctly
-    }
+
 
     const togglePlan = async (planId: string) => {
         // If the plan is already selected, deselect it
