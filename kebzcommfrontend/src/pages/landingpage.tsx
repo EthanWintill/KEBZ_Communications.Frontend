@@ -36,9 +36,6 @@ const LandingPage: React.FC = () => {
             <div style={{ marginTop: '200px' }}>  {/* Add margin top to push the DeviceGallery down */}
                 <DeviceGallery />
             </div>
-            <div style={{ marginTop: '20px' }}>
-                <PlanGallery />
-            </div>
         </div>
     );
 };

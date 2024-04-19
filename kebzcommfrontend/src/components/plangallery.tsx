@@ -33,7 +33,7 @@ const PlanGallery: React.FC = () => {
     const formatLimit = (limit: number) => limit === -1 ? 'Unlimited' : `${limit}`;
 
     return (
-        <div className="container-fluid px-5" style={{ height: '90vh' }}>
+        <div className="container-fluid px-5" style={{ height: '90vh',  maxWidth: '100vw' }}>
             <h2>Discover Our Premier Plans.</h2>
             <ul className="nav nav-tabs justify-content-center" style={{ marginBottom: '20px' }}>
                 {plans.map((plan, index) => (
