@@ -24,7 +24,7 @@ export const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ superplan, onClick
   useEffect(() => {
     const fetchUserPlans = async () => {
       try {
-        const plans = await getUserPlansAsUserPlans(currentuser);
+        const plans = await getUserPlansAsUserPlans();
         setUserPlans(plans);
 
         const index = plans.findIndex(currPlan => currPlan.userPlanId === superplan.associatedUserPlanID);        
@@ -64,7 +64,7 @@ export const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ superplan, onClick
           state: { superplan } // Pass the superplan object as state
         }as any} className='btn btn-info' style={{marginBottom: '5px'}}>Edit</Link>
         <button onClick={() => {
-              removeUserPlan(currentuser, superplan.associatedUserPlanID);
+              removeUserPlan(superplan.associatedUserPlanID);
               setTimeout(() => {
                 window.location.reload();
               }, 500);
@@ -84,7 +84,7 @@ export const PhonePlanCardExpanded: React.FC<ExpandedPhonePlanCardProps> = ({ su
   useEffect(() => {
     const fetchUserPlans = async () => {
       try {
-        const plans = await getUserPlansAsUserPlans(currentuser);
+        const plans = await getUserPlansAsUserPlans();
         setUserPlans(plans);
 
         const index = plans.findIndex(currPlan => currPlan.userPlanId === superplan.associatedUserPlanID);        

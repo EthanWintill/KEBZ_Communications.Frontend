@@ -31,7 +31,7 @@ const SwitchPhoneNumbersPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       // Fetch devices associated with the selected plan
-      const fetchedDevices = await getUserDevices(currentUserId);
+      const fetchedDevices = await getUserDevices();
       setDevices(fetchedDevices);
     };
 

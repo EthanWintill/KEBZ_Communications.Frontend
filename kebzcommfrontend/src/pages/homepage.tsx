@@ -18,7 +18,7 @@ const HomePage: React.FC = () => {
 
     const handleAddPlan = async (planId: string) => {
         // Assign the selected plan to the current user
-        await addUserPlan(currentUserId, planId);
+        await addUserPlan(planId);
     };
 
     useEffect(() => {
@@ -27,7 +27,7 @@ const HomePage: React.FC = () => {
         }
         const fetchData = async () => {
             // Fetch plans for the current user
-            const fetchedSuperPlans = await getUserPlans(currentUserId);
+            const fetchedSuperPlans = await getUserPlans();
             if (fetchedSuperPlans.length === 0) {
                 return;  // Handling case where no plans are returned
             }
@@ -36,7 +36,7 @@ const HomePage: React.FC = () => {
             const devicesMap: { [userPlanId: string]: Device[] } = {};
             await Promise.all(
                 fetchedSuperPlans.map(async (superPlan: { associatedUserPlanID: string; }) => {
-                    const devices = await getUserPlanDevices(superPlan.associatedUserPlanID, currentUserId);
+                    const devices = await getUserPlanDevices(superPlan.associatedUserPlanID);
                     devicesMap[superPlan.associatedUserPlanID] = devices;
                 })
             );
@@ -69,7 +69,7 @@ const HomePage: React.FC = () => {
         }
 
         // Fetch devices for the selected plan
-        const devices = await getUserPlanDevices(planId, currentUserId);
+        const devices = await getUserPlanDevices(planId);
         setDevicesByPlan((prevDevicesByPlan) => ({ ...prevDevicesByPlan, [planId]: devices }));
         setSelectedplanId(planId);
     };
