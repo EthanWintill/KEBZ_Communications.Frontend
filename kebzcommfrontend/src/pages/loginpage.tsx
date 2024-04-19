@@ -6,8 +6,6 @@ import LoginForm from '../components/loginform';
 
 const LoginPage: React.FC = () => {
   const handleLogin = (formData: any) => {
-    //TODO
-    // REDIRECT TO HOME PAGE
     sessionStorage.setItem('userName', formData.userName);
     window.location.href = '/home'
   };

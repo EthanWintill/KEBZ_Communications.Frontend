@@ -124,7 +124,7 @@ export const getUserPlansAsUserPlans = async () : Promise<UserPlan[]> => {
 export const getUserDevices = async (): Promise<Device[]> => {
   
   try {
-    const response = await http.get<Array<Device>>(`/device/currentuser`);
+    const response = await http.get<Array<Device>>(`/device`);
     console.log(response);
     return response.data;
   } catch (error) {
@@ -166,7 +166,7 @@ export const addUserPlan = async (planId: string | undefined): Promise<void> => 
 
 export const updateUser = async (editedUser: User): Promise<void> => {
   try {
-    const response = await http.put(`/user/${editedUser.id}`, editedUser);
+    const response = await http.put(`/user/`, editedUser);
     console.log(response);
   } catch (error) {
     check401(error);

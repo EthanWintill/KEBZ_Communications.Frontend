@@ -14,7 +14,6 @@ const HomePage: React.FC = () => {
     const [allPlans, setAllPlans] = useState<PhonePlan[]>([]);
     const [totalMonthlyPrice, setTotalPrice] = useState<number>(0);
 
-    const currentUserId = sessionStorage.getItem('userId')
 
     const handleAddPlan = async (planId: string) => {
         // Assign the selected plan to the current user
@@ -22,9 +21,7 @@ const HomePage: React.FC = () => {
     };
 
     useEffect(() => {
-        if (!currentUserId) {
-            return; // Correctly handle the absence of a userId without using it conditionally outside useEffect
-        }
+        
         const fetchData = async () => {
             // Fetch plans for the current user
             const fetchedSuperPlans = await getUserPlans();
@@ -54,7 +51,7 @@ const HomePage: React.FC = () => {
         };
 
         fetchData();
-    }, [currentUserId]); // Including 'currentUserId' in the dependency array to re-fetch data when it changes
+    }, []);
 
     if (plans.length === 0) {
         return <div>Loading...</div>; // Ensure this is 'plans.length === 0' to handle empty array correctly

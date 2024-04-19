@@ -16,7 +16,6 @@ interface ExpandedPhonePlanCardProps {
 
 export const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ superplan, onClick }) => {
   const plan = superplan.planObj
-  const currentuser = sessionStorage.getItem('userId')
   const [fetchedUserPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [index, setIndex] = useState<number | null>(null);
   const [matchingPlan, setMatchingPlan] = useState<UserPlan | null>(null);
@@ -76,7 +75,6 @@ export const PhonePlanCard: React.FC<PhonePlanCardProps> = ({ superplan, onClick
 
 export const PhonePlanCardExpanded: React.FC<ExpandedPhonePlanCardProps> = ({ superplan }) => {
   const plan = superplan.planObj
-  const currentuser = sessionStorage.getItem('userId')
   const [fetchedUserPlans, setUserPlans] = useState<UserPlan[]>([]);
   const [index, setIndex] = useState<number | null>(null);
   const [matchingPlan, setMatchingPlan] = useState<UserPlan | null>(null);
