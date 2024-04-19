@@ -24,7 +24,7 @@ const SwitchPhoneNumbersPage: React.FC = () => {
       setSelectedDevice(null);
     setTimeout(() => {
         window.location.reload();
-      }, 500);
+      }, 1500);
     }
   }
 
