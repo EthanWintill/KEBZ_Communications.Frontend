@@ -45,8 +45,8 @@ const PlanGallery: React.FC = () => {
             <div className="tab-content" style={{ padding: '20px', height: '80vh' }}>
                 {plans.length > 0 && (
                     <div className="card mb-3" style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', height: '100%' }}>
-                        <div style={{ flex: '0 0 50%', display: 'flex', justifyContent: 'center' }}>
-                            <img src={`/publicassets/plans/${plans[activeTab].planId}.jpg`} className="img-fluid" style={{ maxHeight: '80%', margin: '0 20px' }} alt="Plan" />
+                        <div style={{ flex: '0 0 50%', display: 'flex', justifyContent: 'center', paddingLeft: '20px' }}>
+                            <img src={`/publicassets/plans/${plans[activeTab].planId}.jpg`} className="img-fluid" style={{ maxHeight: '80%' }} alt="Plan" />
                         </div>
                         <div className="card-body" style={{ flex: '1' }}>
                             <h5 className="card-title" style={{ fontSize: '2rem' }}>{plans[activeTab].planName}</h5>
