@@ -13,6 +13,7 @@ import PrivateRoutes from './components/protectedRoute';
 import SwitchPhoneNumbersPage from './pages/switchphonenumbers';
 import LandingPage from './pages/landingpage';
 import ContactUs from './pages/contactus';
+import Locations from './pages/locations';
 
 function App() {
   return (
@@ -31,6 +32,7 @@ function App() {
           <Route path="/login" Component={LoginPage} />
           <Route path='/register' Component={Register} />
           <Route path="/contact-us" Component={ContactUs} />
+          <Route path="/locations" Component={Locations} />
         </Routes>
         {/* Footer */}
       </div>

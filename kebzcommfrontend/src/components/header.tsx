@@ -34,6 +34,9 @@ function Header() {
         </ul>}
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
+              <Link className="nav-link" to="/locations">Locations</Link>  {/* Locations Link */}
+          </li>
+          <li className="nav-item">
               <Link className="nav-link" to="/contact-us">Contact Us</Link>  {/* Contact Us Link */}
           </li>
           <li className="nav-item">
