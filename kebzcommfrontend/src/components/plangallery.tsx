@@ -32,6 +32,7 @@ const PlanGallery: React.FC = () => {
 
     return (
         <div className="container-fluid px-5" style={{ height: '90vh' }}>
+            <h2>Discover Our Premier Plans.</h2>
             <ul className="nav nav-tabs justify-content-center" style={{ marginBottom: '20px' }}>
                 {plans.map((plan, index) => (
                     <li className="nav-item" key={plan.planId}>
