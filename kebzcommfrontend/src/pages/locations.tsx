@@ -11,7 +11,7 @@ const center = {
   lng: -77.0369
 };
 
-// Example locations: Using general McDonald's locations
+// Example Store Locations
 const locations = [
   { lat: 34.0522, lng: -118.2437, label: "LA" },  // Los Angeles, CA
   { lat: 40.7128, lng: -74.0060, label: "NY" },  // New York, NY
@@ -21,7 +21,7 @@ const locations = [
 const LocationsPage = () => {
   return (
     <LoadScript
-      googleMapsApiKey="AIzaSyB-jJLIhxakHRe8mhr_4fRrxxJ0gkvGCvs"  // Replace with your actual Google Maps API key
+      googleMapsApiKey="" // Insert API Key here
     >
       <GoogleMap
         mapContainerStyle={containerStyle}
