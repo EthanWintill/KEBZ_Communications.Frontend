@@ -12,7 +12,6 @@ const SwitchPhoneNumbersPage: React.FC = () => {
   const [devices, setDevices] = useState<Device[]>([]);
   let { state } = useLocation();
   const superplan = state.state.superplan;
-  const currentUserId = sessionStorage.getItem('userId');
   const [selectedDevice, setSelectedDevice] = useState<Device | null>(null);
 
   const handleSelected = (device: Device) => {
@@ -31,7 +30,7 @@ const SwitchPhoneNumbersPage: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       // Fetch devices associated with the selected plan
-      const fetchedDevices = await getUserDevices(currentUserId);
+      const fetchedDevices = await getUserDevices();
       setDevices(fetchedDevices);
     };
 

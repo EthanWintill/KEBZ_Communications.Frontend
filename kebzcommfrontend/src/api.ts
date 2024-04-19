@@ -77,9 +77,9 @@ export const getPlanById = async (planId: string | undefined): Promise<PhonePlan
 
 
 
-export const getUserById = async (userId: string | null): Promise<User | any> => {
+export const getUserById = async (): Promise<User | any> => {
   try {
-    const response = await http.get<User>('/user/' + userId);
+    const response = await http.get<User>('/user');
     return response.data
   } catch (error: any) {
     check401(error);
@@ -88,9 +88,9 @@ export const getUserById = async (userId: string | null): Promise<User | any> =>
 };
 
 
-export const getUserPlans = async (userId: string | null): Promise<any> => {
+export const getUserPlans = async (): Promise<any> => {
   try {
-    const response = await http.get<UserPlan[]>(`/user/${userId}/userplan`);
+    const response = await http.get<UserPlan[]>(`/userplan`);
     const userplans = response.data;
 
     const plans = await getAllPlans();
@@ -111,9 +111,9 @@ export const getUserPlans = async (userId: string | null): Promise<any> => {
   }
 }
 
-export const getUserPlansAsUserPlans = async (userId: string | null) : Promise<UserPlan[]> => {
+export const getUserPlansAsUserPlans = async () : Promise<UserPlan[]> => {
   try {
-    const response = await http.get<UserPlan[]>(`/user/${userId}/userplan`);
+    const response = await http.get<UserPlan[]>(`/userplan`);
     return response.data;
   } catch (error) {
     console.log(error);
@@ -121,12 +121,10 @@ export const getUserPlansAsUserPlans = async (userId: string | null) : Promise<U
   }
 }
 
-export const getUserDevices = async (userId: string | null): Promise<Device[]> => {
-  if (!userId) {
-    throw new Error('Invalid user ID');
-  }
+export const getUserDevices = async (): Promise<Device[]> => {
+  
   try {
-    const response = await http.get<Array<Device>>(`/device/${userId}/device`);
+    const response = await http.get<Array<Device>>(`/device`);
     console.log(response);
     return response.data;
   } catch (error) {
@@ -135,9 +133,9 @@ export const getUserDevices = async (userId: string | null): Promise<Device[]> =
   }
 }
 
-export const getUserPlanDevices = async (userPlanId: string | undefined, userId: string | null): Promise<Device[]> => {
+export const getUserPlanDevices = async (userPlanId: string | undefined): Promise<Device[]> => {
   try {
-    const response = await http.get(`/device/${userId}/${userPlanId}`);
+    const response = await http.get(`/device/${userPlanId}`);
     console.log(response);
     return response.data;
   } catch (error) {
@@ -146,16 +144,15 @@ export const getUserPlanDevices = async (userPlanId: string | undefined, userId:
   }
 }
 
-export const addUserPlan = async (userId: string | null, planId: string | undefined): Promise<void> => {
+export const addUserPlan = async (planId: string | undefined): Promise<void> => {
 
   const currentDate = new Date();
   const sixMonthsFromNow = new Date();
   sixMonthsFromNow.setMonth(currentDate.getMonth() + 6);
 
   try {
-    const response = await http.post(`/user/${userId}/userplan`,
+    const response = await http.post(`/userplan`,
       {
-        userId: userId,
         planId: planId,
         startDate: currentDate.toJSON().slice(0, 10),
         endDate: sixMonthsFromNow.toJSON().slice(0, 10)
@@ -169,7 +166,7 @@ export const addUserPlan = async (userId: string | null, planId: string | undefi
 
 export const updateUser = async (editedUser: User): Promise<void> => {
   try {
-    const response = await http.put(`/user/${editedUser.id}`, editedUser);
+    const response = await http.put(`/user/`, editedUser);
     console.log(response);
   } catch (error) {
     check401(error);
@@ -195,9 +192,9 @@ export const addDevice = async ( devicedata: any): Promise<void | any> => {
   }
 }
 
-export const removeUserPlan = async (userId: string | null, planId: string | undefined): Promise<void> => {
+export const removeUserPlan = async (planId: string | undefined): Promise<void> => {
   try {
-    const response = await http.delete(`/user/${userId}/userplan/${planId}`);
+    const response = await http.delete(`/userplan/${planId}`);
     return response.data;
   } catch (error) {
     check401(error);

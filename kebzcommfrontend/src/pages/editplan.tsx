@@ -19,7 +19,7 @@ const EditPlanPage: React.FC = () => {
 
 
       // Fetch devices associated with the selected plan
-      const fetchedDevices = await getUserPlanDevices(superplan.associatedUserPlanID, sessionStorage.getItem('userId'));
+      const fetchedDevices = await getUserPlanDevices(superplan.associatedUserPlanID);
       setDevices(fetchedDevices);
       setDeviceCount(fetchedDevices.length);
     };

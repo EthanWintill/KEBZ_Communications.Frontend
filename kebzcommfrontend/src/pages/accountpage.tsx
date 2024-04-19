@@ -9,7 +9,7 @@ const AccountPage: React.FC = () => {
 
     useEffect(() => {
       const fetchData = async () => {
-        const fetchedUser = await getUserById(sessionStorage.getItem('userId'));
+        const fetchedUser = await getUserById();
         setUser(fetchedUser || null);
       }
     

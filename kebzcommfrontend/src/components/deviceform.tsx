@@ -9,7 +9,6 @@ interface FormData {
   model: string;
   phoneNumber: string;
   IMEI: string;
-  userId: string;
   userPlanId: string;
 }
 
@@ -24,7 +23,6 @@ const DeviceForm: React.FC<DeviceFormProps> = ({ superplan, onSubmit }) => {
     model: '',
     phoneNumber: '',
     IMEI: '',
-    userId: sessionStorage.getItem('userId')!,
     userPlanId: superplan.associatedUserPlanID
   });
   const [popup, setpopup] = useState<string | null>(null);  // State for storing server popup messages
