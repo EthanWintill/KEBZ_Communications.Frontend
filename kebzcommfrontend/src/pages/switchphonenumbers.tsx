@@ -22,8 +22,10 @@ const SwitchPhoneNumbersPage: React.FC = () => {
     } else {
       switchNumbers(selectedDevice, device);
       setSelectedDevice(null);
+    setTimeout(() => {
+        window.location.reload();
+      }, 500);
     }
-
   }
 
   useEffect(() => {
