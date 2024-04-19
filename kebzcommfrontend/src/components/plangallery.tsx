@@ -39,7 +39,8 @@ const PlanGallery: React.FC = () => {
                 {plans.map((plan, index) => (
                     <li className="nav-item" key={plan.planId}>
                         <a className={`nav-link ${index === activeTab ? 'active' : ''}`}
-                           onClick={() => handleTabClick(index)}>
+                           onClick={() => handleTabClick(index)}
+                            style={{ cursor: 'pointer' }}>
                             {plan.planName}
                         </a>
                     </li>
