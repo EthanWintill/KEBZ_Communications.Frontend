@@ -209,12 +209,18 @@ export const switchNumbers = async (device1: Device, device2: Device): Promise<v
     throw new Error('Invalid device');
   }
   try {
-    const device1Number = device1.phoneNumber
-    device1.phoneNumber = device2.phoneNumber;
-    device2.phoneNumber = device1Number;
+    const newDevice2Number = device1.phoneNumber;
+    const newDevice1Number = device2.phoneNumber;
+    const randomNumber = Math.floor(Math.random() * 1000000000).toString();
+
+    device1.phoneNumber = randomNumber;
+    device2.phoneNumber = newDevice2Number;
 
     const device1PutRes = await http.put(`/device/${device1?.deviceId}`, device1);
     const device2PutRes = await http.put(`/device/${device2?.deviceId}`, device2);
+
+    device1.phoneNumber = newDevice1Number;
+    const device1PutRes2 = await http.put(`/device/${device1?.deviceId}`, device1);
 
     console.log(device1PutRes);
   } catch (error) {
