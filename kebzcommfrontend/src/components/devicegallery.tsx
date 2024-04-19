@@ -45,7 +45,7 @@ const DeviceGallery: React.FC = () => {
     const [devices, setDevices] = useState<BestDevice[]>(initialDevices);
 
     return (
-        <div className="device-gallery container" style={{ maxWidth: '100vw', overflowX: 'hidden', padding: '0 15px' }}>
+        <div className="device-gallery container" style={{ maxWidth: '100vw', overflowX: 'hidden', padding: '0 15px', backgroundColor: '#DFF7FF', paddingTop: '20px' }}>
             <h2>View our best devices.</h2>
             <div className="row">
                 {devices.map(device => (
