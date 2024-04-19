@@ -22,6 +22,7 @@ interface DeviceCardButtonProps {
 interface DeviceCardButtonSwitchProps {
   device: Device;
   onSelected: (device: Device) => void;
+  isSelected?: boolean; // Add this line
 }
 
 const DeviceCard: React.FC<DeviceCardProps> = ({ device }) => {
@@ -62,16 +63,18 @@ export const DeviceCardButtons: React.FC<DeviceCardButtonProps> = ({ device }) =
   );
 }
 
-export const DeviceCardButtonsSwitch: React.FC<DeviceCardButtonSwitchProps> = ({ device, onSelected }) => {
+export const DeviceCardButtonsSwitch: React.FC<DeviceCardButtonSwitchProps> = ({ device, onSelected, isSelected }) => {
 
   return (
-    <div className="d-flex justify-content-center align-items-center" onClick={() => { onSelected(device) }}>
-      <div className="text-center">
-        <h4>{device.manufacturer} {device.model}</h4>
-        <p>Phone Number: {device.phoneNumber}</p>
-        <p>IMEI: {device.imei}</p>
-        <button className="btn btn-danger">Switch Number for Device</button>
-        <div style={{ margin: '20px' }}></div>
+    <div className={`col-md-4`} onClick={() => { onSelected(device) }}>
+      <div className={`card ${isSelected ? 'bg-info' : ''}`}>
+        <div className="card-header"> <h4>{device.manufacturer} {device.model}</h4></div>
+        <div className="card-body">
+          <p>Phone Number: {device.phoneNumber}</p>
+          <p>IMEI: {device.imei}</p>
+          <p><i>Click to select</i></p>
+          <div style={{ margin: '20px' }}></div>
+        </div>
       </div>
     </div>
   );
