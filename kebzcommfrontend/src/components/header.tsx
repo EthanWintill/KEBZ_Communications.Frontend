@@ -34,6 +34,12 @@ function Header() {
         </ul>}
         <ul className="navbar-nav ml-auto">
           <li className="nav-item">
+              <Link className="nav-link" to="/contact-us">Contact Us</Link>  {/* Contact Us Link */}
+          </li>
+          <li className="nav-item">
+              <span className="nav-link" style={{ color: 'rgba(255, 255, 255, 0.5)' }}>|</span>  {/* Separator */}
+            </li>
+          <li className="nav-item">
             <button className="nav-link btn btn-link" onClick={isLoggedIn ? logout : () => window.location.href = '/login'} 
                 style={{ color: 'rgba(255,255,255,.55)' }}>
               {isLoggedIn ? 'Logout' : 'Sign-In'}
